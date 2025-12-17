@@ -1101,7 +1101,7 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-star"></i>
-                    <span data-en="Trusted by 5000+ Teachers" data-fr="Approuvé par plus de 5000 enseignants" data-ar="موثوق به من قبل أكثر من 5000 معلم">Trusted by 50+ Teachers</span>
+                    <span data-en="Trusted by 50+ Teachers" data-fr="Approuvé par plus de 50 enseignants" data-ar="موثوق به من قبل أكثر من 50 معلم">Trusted by 50+ Teachers</span>
                 </div>
 
                 <h1 class="hero-title text-gradient" data-en="Transform Your Teaching Experience" data-fr="Transformez votre expérience d'enseignement" data-ar="حوّل تجربة التدريس الخاصة بك">Transform Your Teaching Experience</h1>
@@ -1300,7 +1300,10 @@
             </div>
 
             <div class="order-form-container scroll-reveal">
-                <form class="order-form" id="orderForm">
+                <form class="order-form" id="orderForm" name="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <!-- Netlify form handling: form-name and honeypot -->
+                    <input type="hidden" name="form-name" value="orderForm">
+                    <p class="hidden" style="display:none;"><label>Don’t fill this out if you're human: <input name="bot-field"></label></p>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fullName" data-en="Full Name *" data-fr="Nom Complet *" data-ar="الاسم الكامل *">Full Name *</label>
@@ -1370,7 +1373,7 @@
 
                         <p class="confirmation-wait" data-en="Please keep your phone accessible. Our team will contact you soon!" data-fr="Veuillez garder votre téléphone accessible. Notre équipe vous contactera bientôt!" data-ar="يرجى إبقاء هاتفك متاحًا. سيتصل بك فريقنا قريبًا!">Please keep your phone accessible. Our team will contact you soon!</p>
 
-                        <button class="new-order-btn" onclick="resetForm()" data-en="Place Another Order" data-fr="Passer une autre commande" data-ar="تقديم طلب آخر">Place Another Order</button>
+                        <a href="#orderForm" class="new-order-btn" data-en="Place Another Order" data-fr="Passer une autre commande" data-ar="تقديم طلب آخر">Place Another Order</a>
                     </div>
                 </div>
             </div>
@@ -1477,36 +1480,8 @@
             lastScroll = currentScroll;
         });
 
-        // ============================================
-        // FORM SUBMISSION
-        // ============================================
-        const orderForm = document.getElementById('orderForm');
-        const confirmationMessage = document.getElementById('confirmationMessage');
-
-        orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Get form data
-            const formData = new FormData(orderForm);
-            const data = Object.fromEntries(formData);
-
-            // Here you would normally send the data to your server
-            console.log('Order submitted:', data);
-
-            // Show confirmation message
-            orderForm.style.display = 'none';
-            confirmationMessage.classList.remove('hidden');
-
-            // Scroll to confirmation
-            confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        function resetForm() {
-            orderForm.reset();
-            orderForm.style.display = 'block';
-            confirmationMessage.classList.add('hidden');
-            orderForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        // FORM SUBMISSION removed to allow Netlify to process the HTML form directly
+        // The form now uses Netlify form detection (data-netlify="true") and will be parsed at deploy time.
 
         // ============================================
         // SMOOTH SCROLL FOR ANCHOR LINKS
