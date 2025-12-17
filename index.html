@@ -1351,7 +1351,7 @@
             </div>
 
             <div class="order-form-container scroll-reveal">
-                <form class="order-form" id="orderForm" name="orderForm" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <form class="order-form" id="orderForm" name="orderForm" method="POST" action="/?submitted=true" data-netlify="true" netlify-honeypot="bot-field">
                     <!-- Netlify form handling: form-name and honeypot -->
                     <input type="hidden" name="form-name" value="orderForm">
                     <p class="hidden" style="display:none;"><label>Don’t fill this out if you're human: <input name="bot-field"></label></p>
@@ -1392,10 +1392,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="address" data-en="Full Address *" data-fr="Adresse Complète *" data-ar="العنوان الكامل *">Full Address *</label>
-                        <input type="text" id="address" name="address" required>
-                    </div>
+                    <!-- Full Address field removed as requested -->
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="terms" name="terms" required>
@@ -1594,6 +1591,24 @@
                     el.classList.add('revealed');
                 }
             });
+
+            // If Netlify redirected back with ?submitted=true, show inline confirmation
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('submitted') === 'true') {
+                const orderFormEl = document.getElementById('orderForm');
+                const confirmationMessage = document.getElementById('confirmationMessage');
+                if (orderFormEl && confirmationMessage) {
+                    orderFormEl.style.display = 'none';
+                    confirmationMessage.classList.remove('hidden');
+                    confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                // Remove the query param from the URL so refresh doesn't re-show it
+                if (window.history && window.history.replaceState) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.delete('submitted');
+                    window.history.replaceState({}, document.title, url.pathname + url.search + url.hash);
+                }
+            }
         });
     </script>
 </body>
