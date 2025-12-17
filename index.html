@@ -211,6 +211,56 @@
             background: var(--gray-100);
             padding: var(--space-1);
             border-radius: var(--radius-full);
+            position: relative;
+        }
+
+        .lang-toggle {
+            background: var(--gray-100);
+            border: none;
+            padding: var(--space-2);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+        }
+
+        .lang-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 0.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 0.5rem;
+            min-width: 140px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: all var(--transition-fast);
+            z-index: 2000;
+        }
+
+        .lang-menu.open {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .lang-menu .lang-btn {
+            background: transparent;
+            border: none;
+            text-align: left;
+            padding: 0.5rem;
+            width: 100%;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+
+        .lang-menu .lang-btn:hover {
+            background: var(--gray-100);
         }
 
         .lang-btn {
@@ -1082,14 +1132,15 @@
                     </div>
                 </div>
 
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <!-- Mobile menu button hidden/removed per request -->
 
                 <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
-                    <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
-                    <button class="lang-btn" data-lang="ar">🇲🇦 العربية</button>
+                    <button class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-label="Change language"><i class="fas fa-globe"></i></button>
+                    <div class="lang-menu" id="langMenu" role="menu" aria-hidden="true">
+                        <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+                        <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
+                        <button class="lang-btn" data-lang="ar">🇲🇦 العربية</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1441,6 +1492,30 @@
                 switchLanguage(btn.dataset.lang);
             });
         });
+
+        // Globe toggle to open/close language menu
+        const langToggle = document.getElementById('langToggle');
+        const langMenu = document.getElementById('langMenu');
+        if (langToggle && langMenu) {
+            langToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const opened = langMenu.classList.toggle('open');
+                langToggle.setAttribute('aria-expanded', opened);
+                langMenu.setAttribute('aria-hidden', !opened);
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', () => {
+                if (langMenu.classList.contains('open')) {
+                    langMenu.classList.remove('open');
+                    langToggle.setAttribute('aria-expanded', 'false');
+                    langMenu.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            // Prevent clicks inside menu from closing
+            langMenu.addEventListener('click', (e) => e.stopPropagation());
+        }
 
         // ============================================
         // SCROLL REVEAL ANIMATIONS
