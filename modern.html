@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Educational Kit for Primary School Teachers</title>
+    <link rel="stylesheet" href="modern.css">
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="container hero-container">
+            <div class="hero-text">
+                <h1>Complete Educational Kit for Primary School Teachers</h1>
+                <p class="subtitle">Ready-to-use PDFs and educational songs designed for classroom success.</p>
+                <div class="price">
+                    <span class="original-price">300 MAD</span>
+                    <span class="discounted-price">150 MAD</span>
+                    <span class="offer-badge">Limited Offer</span>
+                </div>
+                <a href="#order" class="btn btn-primary">Order Now</a>
+            </div>
+            <div class="hero-image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <path d="M9 18V5l6-2v13"></path>
+                    <circle cx="12" cy="15" r="3"></circle>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="trust-indicators">
+            <div class="container">
+                <div class="indicator">
+                    <span>Instant Delivery After Payment</span>
+                </div>
+                <div class="indicator">
+                    <span>Designed for Primary Education</span>
+                </div>
+                <div class="indicator">
+                    <span>Ready-to-Use Materials</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="details" class="details">
+            <div class="container">
+                <h2>What’s Inside the Kit</h2>
+                <div class="details-cards">
+                    <div class="card">
+                        <h3>PDF Educational Files</h3>
+                        <p>High-quality, printable resources.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Children Songs & Chants</h3>
+                        <p>Engaging audio for active learning.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Organized by Grade Levels</h3>
+                        <p>Find what you need in seconds.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Classroom-Ready Content</h3>
+                        <p>Save hours of preparation time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="target-audience">
+            <div class="container">
+                <h2>Who Is This For?</h2>
+                <ul>
+                    <li>Primary school teachers</li>
+                    <li>Educators working with young learners</li>
+                    <li>Tutors seeking structured materials</li>
+                    <li>Teachers looking for ready-to-use content</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="benefits">
+            <div class="container">
+                <h2>Why This Kit Is Valuable</h2>
+                <ul>
+                    <li>Saves hours of preparation time</li>
+                    <li>Improves classroom engagement</li>
+                    <li>Organized and easy to use</li>
+                    <li>No special software or skills required</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="order" class="order-section">
+            <div class="container">
+                <div class="order-form-container">
+                    <h2>Confirm Your Order</h2>
+                    <form id="order-form" name="order-modern" method="POST" data-netlify="true"
+                        netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="order-modern" />
+                        <p style="display:none"><label>Don't fill this out if you're human: <input
+                                    name="bot-field" /></label></p>
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grade">Grade Level</label>
+                            <select id="grade" name="grade" required>
+                                <option value="" disabled selected>Select a grade</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Confirm Order</button>
+                        <p class="reassurance">We will contact you to complete payment.</p>
+                    </form>
+                    <div id="success-message" style="display: none;">
+                        <p>✔️ Your order has been received. We will contact you via WhatsApp or email to complete
+                            payment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Educational Kits. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="modern.js"></script>
+</body>
+
+</html>
