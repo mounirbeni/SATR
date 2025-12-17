@@ -20,7 +20,11 @@
 :root {
     --primary-color: #2563eb;
     --primary-dark: #1e40af;
-    --accent-color: #10b981;
+    --accent-color: #2563eb; /* UI accent set to blue by default */
+    --accent-green: #10b981; /* keep green for pricing/discount highlights */
+    --container-max: 1400px;
+    --gutter: 20px;
+    --base-radius: 12px;
     --light-bg: #f3f4f6;
     --text-dark: #1f2937;
     --text-light: #6b7280;
@@ -31,13 +35,14 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: #ffffff;
+    background-color: var(--light-bg);
 }
 
 /* RTL Support for Arabic */
@@ -58,9 +63,9 @@ body[dir="rtl"] .header-top {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--gutter);
 }
 
 /* ============================================
@@ -207,11 +212,11 @@ body[dir="rtl"] .header-top {
 }
 
 .price-item.discount {
-    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    background: linear-gradient(135deg, var(--accent-green) 0%, #059f66 50%, #047857 100%);
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
-    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.35);
+    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.35); /* pricing stays green */
     position: relative;
     z-index: 1;
 }
@@ -234,7 +239,7 @@ body[dir="rtl"] .header-top {
 
 .price-item.discount:hover {
     transform: scale(1.12) translateY(-10px);
-    box-shadow: 0 30px 60px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 30px 60px rgba(16, 185, 129, 0.4); /* keep hover glow green */
 }
 
 .price-item .label {
@@ -396,7 +401,7 @@ body[dir="rtl"] .header-top {
     right: -50px;
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
     border-radius: 50%;
     z-index: 0;
     animation: float 8s ease-in-out infinite;
@@ -421,10 +426,10 @@ body[dir="rtl"] .header-top {
 }
 
 .intro-card {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(16, 185, 129, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 2px solid rgba(37, 99, 235, 0.06);
     box-shadow:
         0 25px 60px rgba(0, 0, 0, 0.08),
         0 0 1px rgba(0, 0, 0, 0.05),
@@ -440,10 +445,10 @@ body[dir="rtl"] .header-top {
 }
 
 .intro-card:hover {
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12),
+    box-shadow: 0 40px 100px rgba(16, 24, 40, 0.12),
                 0 0 1px rgba(0, 0, 0, 0.05),
-                inset 0 0 0 2px rgba(255, 255, 255, 0.8);
-    border-color: rgba(16, 185, 129, 0.2);
+                inset 0 0 0 2px rgba(255, 255, 255, 0.85);
+    border-color: rgba(37, 99, 235, 0.12);
 }
 
 /* Accent gradient top border */
@@ -454,7 +459,7 @@ body[dir="rtl"] .header-top {
     left: 0;
     width: 100%;
     height: 8px;
-    background: linear-gradient(90deg, #059669, #10b981, #34d399, #10b981);
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-color), #3b82f6);
     background-size: 200% 100%;
     animation: shimmer 4s ease-in-out infinite;
 }
@@ -467,7 +472,7 @@ body[dir="rtl"] .header-top {
 .intro-section h2 {
     font-size: 3.2rem;
     margin-bottom: 30px;
-    background: linear-gradient(135deg, #059669 0%, #0f766e 50%, #047857 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 60%, #60a5fa 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -518,7 +523,7 @@ body[dir="rtl"] .header-top {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 1px solid rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.06);
     position: relative;
     overflow: hidden;
 }
@@ -530,15 +535,15 @@ body[dir="rtl"] .header-top {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, transparent 100%);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
 .highlight:hover {
     transform: translateY(-12px);
-    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
-    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
+    border-color: rgba(37, 99, 235, 0.16);
 }
 
 .highlight:hover::before {
@@ -553,7 +558,7 @@ body[dir="rtl"] .header-top {
 }
 
 .highlight .icon i {
-    background: linear-gradient(135deg, #059669, #10b981);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -572,7 +577,7 @@ body[dir="rtl"] .header-top {
 
 .highlight p:first-of-type {
     font-weight: 700;
-    color: #059669;
+    color: var(--accent-color);
     font-size: 1.1rem;
     margin-bottom: 15px;
 }
@@ -952,7 +957,7 @@ body[dir="rtl"] .header-top {
 
 .form-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 20px;
 }
 
@@ -1027,22 +1032,22 @@ input[type="checkbox"] {
 
 .submit-btn {
     width: 100%;
-    padding: 15px;
+    padding: 16px 18px;
     margin-top: 30px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
+    border-radius: 12px;
+    font-size: 1.15em;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 10px 30px rgba(37,99,235,0.16);
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(37,99,235,0.18);
 }
 
 .submit-btn:active {
