@@ -8,1750 +8,1200 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ============================================
-   General Styles & Variables
-   ============================================ */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #2563eb;
-    --primary-dark: #1e40af;
-    --accent-color: #2563eb; /* UI accent set to blue by default */
-    --accent-green: #10b981; /* keep green for pricing/discount highlights */
-    --container-max: 1400px;
-    --gutter: 20px;
-    --base-radius: 12px;
-    --light-bg: #f3f4f6;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --border-color: #e5e7eb;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--light-bg);
-}
-
-/* RTL Support for Arabic */
-body[dir="rtl"] {
-    text-align: right;
-}
-
-body[dir="rtl"] .container {
-    text-align: right;
-}
-
-body[dir="rtl"] .form-row {
-    direction: rtl;
-}
-
-body[dir="rtl"] .header-top {
-    flex-direction: row-reverse;
-}
-
-.container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-}
-
-/* ============================================
-   Header Styles
-   ============================================ */
-
-.header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
-    padding: 30px 0;
-    box-shadow: var(--shadow-lg);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 4px solid var(--accent-color);
-}
-
-.header .container {
-    text-align: center;
-}
-
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.logo {
-    flex: 1;
-    text-align: left;
-    min-width: 200px;
-}
-
-.language-switcher {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-
-.lang-btn {
-    padding: 8px 16px;
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85em;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.lang-btn:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-}
-
-.lang-btn.active {
-    background-color: white;
-    color: var(--primary-color);
-    border-color: white;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.logo h1 {
-    font-size: 2.2em;
-    margin-bottom: 5px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo h1 i {
-    margin-right: 8px;
-    font-size: 1.1em;
-}
-
-.tagline {
-    font-size: 0.9em;
-    opacity: 0.95;
-    font-weight: 300;
-    line-height: 1.4;
-}
-
-/* ============================================
-   Pricing Display - UPGRADED
-   ============================================ */
-
-.pricing-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    margin: 50px 0;
-    flex-wrap: wrap;
-    perspective: 1000px;
-}
-
-.price-item {
-    background: white;
-    padding: 35px 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    min-width: 200px;
-    border: 2px solid var(--border-color);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.price-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-    transform: rotate(45deg);
-    transition: all 0.6s;
-}
-
-.price-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-}
-
-.price-item.original {
-    opacity: 0.75;
-    transform: scale(0.95);
-}
-
-.price-item.original:hover {
-    opacity: 0.9;
-    transform: scale(0.98) translateY(-4px);
-}
-
-.price-item.discount {
-    background: linear-gradient(135deg, var(--accent-green) 0%, #059f66 50%, #047857 100%);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0 20px 50px rgba(16, 185, 129, 0.35); /* pricing stays green */
-    position: relative;
-    z-index: 1;
-}
-
-.price-item.discount::after {
-    content: '★ BEST OFFER ★';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: white;
-    padding: 6px 20px;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 700;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-}
-
-.price-item.discount:hover {
-    transform: scale(1.12) translateY(-10px);
-    box-shadow: 0 30px 60px rgba(16, 185, 129, 0.4); /* keep hover glow green */
-}
-
-.price-item .label {
-    display: block;
-    font-size: 0.9em;
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
-}
-
-.price-item.original .label {
-    color: var(--text-light);
-}
-
-.price-item.discount .label {
-    color: rgba(255, 255, 255, 0.95);
-}
-
-.price-strikethrough {
-    display: block;
-    font-size: 1.8em;
-    font-weight: 700;
-    text-decoration: line-through;
-    color: var(--text-light);
-    opacity: 0.7;
-}
-
-.price-final {
-    display: block;
-    font-size: 3em;
-    font-weight: 800;
-    color: white;
-    margin: 15px 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-}
-
-.discount-tag {
-    display: block;
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.95);
-    font-weight: 700;
-    margin-top: 12px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    padding: 8px 16px;
-    border-radius: 8px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.price-separator {
-    font-size: 2.5em;
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    font-weight: 300;
-    opacity: 0.5;
-}
-
-@media (max-width: 768px) {
-    .pricing-display {
-        gap: 20px;
-        margin: 40px 0;
-    }
-
-    .price-item {
-        padding: 30px 35px;
-        min-width: 180px;
-    }
-
-    .price-item.discount {
-        transform: scale(1.08);
-    }
-
-    .price-item.discount:hover {
-        transform: scale(1.1) translateY(-8px);
-    }
-
-    .price-final {
-        font-size: 2.5em;
-    }
-
-    .price-strikethrough {
-        font-size: 1.4em;
-    }
-
-    .price-separator {
-        font-size: 2em;
-    }
-}
-
-@media (max-width: 480px) {
-    .pricing-display {
-        flex-direction: column;
-        gap: 15px;
-        margin: 30px 0;
-    }
-
-    .price-item {
-        width: 100%;
-        min-width: auto;
-        padding: 25px 30px;
-    }
-
-    .price-item.discount {
-        transform: scale(1.05);
-    }
-
-    .price-item.discount:hover {
-        transform: scale(1.07) translateY(-5px);
-    }
-
-    .price-item.discount::after {
-        top: -10px;
-        font-size: 0.7em;
-        padding: 5px 15px;
-    }
-
-    .price-separator {
-        transform: rotate(90deg);
-        margin: 5px 0;
-        font-size: 1.5em;
-    }
-
-    .price-final {
-        font-size: 2em;
-    }
-
-    .price-strikethrough {
-        font-size: 1.2em;
-    }
-}
-
-/* ============================================
-   Introduction Section Adjustments - UPGRADED
-   ============================================ */
-
-.intro-section {
-    padding: 100px 0;
-    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #dbeafe 100%);
-    margin-top: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Animated background decoration */
-.intro-section::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    z-index: 0;
-    animation: float 8s ease-in-out infinite;
-}
-
-.intro-section::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    left: -80px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 50%;
-    z-index: 0;
-    animation: float 10s ease-in-out infinite reverse;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(30px); }
-}
-
-.intro-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 2px solid rgba(37, 99, 235, 0.06);
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.08),
-        0 0 1px rgba(0, 0, 0, 0.05),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.6);
-    border-radius: 28px;
-    padding: 70px;
-    max-width: 950px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    transition: all 0.5s ease;
-}
-
-.intro-card:hover {
-    box-shadow: 0 40px 100px rgba(16, 24, 40, 0.12),
-                0 0 1px rgba(0, 0, 0, 0.05),
-                inset 0 0 0 2px rgba(255, 255, 255, 0.85);
-    border-color: rgba(37, 99, 235, 0.12);
-}
-
-/* Accent gradient top border */
-.intro-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-color), #3b82f6);
-    background-size: 200% 100%;
-    animation: shimmer 4s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-    0%, 100% { background-position: 0% center; }
-    50% { background-position: 100% center; }
-}
-
-.intro-section h2 {
-    font-size: 3.2rem;
-    margin-bottom: 30px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 60%, #60a5fa 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    animation: slideIn 0.8s ease-out;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.intro-description {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-    text-align: center;
-    margin-bottom: 60px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.9;
-    font-weight: 500;
-    opacity: 0.95;
-    animation: slideIn 0.8s ease-out 0.2s both;
-}
-
-.kit-highlights {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
-    margin-top: 50px;
-    animation: slideIn 0.8s ease-out 0.4s both;
-}
-
-.highlight {
-    background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-    padding: 40px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border: 1px solid rgba(37, 99, 235, 0.06);
-    position: relative;
-    overflow: hidden;
-}
-
-.highlight::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.04) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.highlight:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
-    border-color: rgba(37, 99, 235, 0.16);
-}
-
-.highlight:hover::before {
-    opacity: 1;
-}
-
-.highlight .icon {
-    font-size: 3em;
-    display: block;
-    margin-bottom: 20px;
-    animation: bounce 2s ease-in-out infinite;
-}
-
-.highlight .icon i {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.highlight p {
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 1;
-}
-
-.highlight p:first-of-type {
-    font-weight: 700;
-    color: var(--accent-color);
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-}
-
-.highlight p:last-of-type {
-    color: var(--text-light);
-    font-size: 0.95em;
-}
-
-/* Mobile Responsive - Intro Card & Highlights */
-@media (max-width: 768px) {
-    .intro-section {
-        padding: 60px 0;
-    }
-
-    .intro-card {
-        padding: 50px 40px;
-        border-radius: 20px;
-    }
-
-    .intro-card:hover {
-        transform: none;
-    }
-
-    .intro-section h2 {
-        font-size: 2.2rem;
-        margin-bottom: 25px;
-    }
-
-    .intro-description {
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-    }
-
-    .kit-highlights {
-        gap: 25px;
-        margin-top: 35px;
-    }
-
-    .highlight {
-        padding: 30px 25px;
-    }
-
-    .highlight .icon {
-        font-size: 2.5em;
-    }
-
-    .highlight:hover {
-        transform: translateY(-8px);
-    }
-}
-
-@media (max-width: 480px) {
-    .intro-section {
-        padding: 40px 0;
-    }
-
-    .intro-card {
-        padding: 35px 25px;
-        border-radius: 16px;
-        margin: 0 10px;
-    }
-
-    .intro-section h2 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    .intro-description {
-        font-size: 0.95rem;
-        margin-bottom: 35px;
-        line-height: 1.6;
-    }
-
-    .kit-highlights {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        margin-top: 30px;
-    }
-
-    .highlight {
-        padding: 25px 20px;
-    }
-
-    .highlight .icon {
-        font-size: 2.2em;
-    }
-
-    .highlight p:first-of-type {
-        font-size: 1rem;
-    }
-
-    .highlight p:last-of-type {
-        font-size: 0.9rem;
-    }
-}
-
-/* ============================================
-   Features Section
-   ============================================ */
-
-.features-section {
-    padding: 60px 0;
-}
-
-.features-section h2 {
-    font-size: 2.2em;
-    margin-bottom: 50px;
-    text-align: center;
-    color: var(--text-dark);
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.feature-card {
-    background: white;
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.feature-card:hover {
-    border-color: var(--primary-color);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-5px);
-}
-
-.feature-icon {
-    font-size: 2em;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-
-.feature-card h3 {
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    color: var(--text-dark);
-}
-
-.feature-card p {
-    color: var(--text-light);
-    line-height: 1.6;
-    font-size: 0.95em;
-}
-
-/* ============================================
-   Reviews Section
-   ============================================ */
-
-.reviews-section {
-    padding: 60px 0;
-}
-
-.reviews-section h2 {
-    font-size: 2.2em;
-    margin-bottom: 20px;
-    text-align: center;
-    color: var(--text-dark);
-}
-
-.reviews-intro {
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 50px;
-    font-size: 1.05em;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.review-card {
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-}
-
-.review-card:hover {
-    border-color: var(--primary-color);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-5px);
-}
-
-.review-rating {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 15px;
-}
-
-.review-rating i {
-    color: #fbbf24;
-    font-size: 1.1em;
-}
-
-.review-text {
-    color: var(--text-light);
-    line-height: 1.8;
-    margin-bottom: 20px;
-    flex-grow: 1;
-    font-size: 0.95em;
-}
-
-.review-author {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
-}
-
-.author-info h4 {
-    font-size: 1em;
-    color: var(--text-dark);
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.author-info p {
-    font-size: 0.85em;
-    color: var(--text-light);
-    margin: 0;
-}
-
-/* ============================================
-   Target Audience Section
-   ============================================ */
-
-.audience-section {
-    padding: 60px 0;
-    background-color: var(--light-bg);
-}
-
-.audience-section h2 {
-    font-size: 2.2em;
-    margin-bottom: 40px;
-    text-align: center;
-    color: var(--text-dark);
-}
-
-.audience-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.audience-intro {
-    font-size: 1.1em;
-    color: var(--text-light);
-    margin-bottom: 25px;
-    font-weight: 500;
-}
-
-.audience-list {
-    list-style: none;
-    margin-bottom: 30px;
-}
-
-.audience-list li {
-    padding: 15px 20px;
-    margin-bottom: 12px;
-    background: white;
-    border-left: 4px solid var(--primary-color);
-    border-radius: 6px;
-    font-size: 1em;
-    line-height: 1.5;
-    transition: all 0.3s ease;
-}
-
-.audience-list li:hover {
-    box-shadow: var(--shadow);
-    transform: translateX(5px);
-}
-
-.audience-list strong {
-    color: var(--primary-color);
-}
-
-.audience-note {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-    color: var(--text-light);
-    border: 1px solid var(--border-color);
-    line-height: 1.7;
-}
-
-/* ============================================
-   Order Section
-   ============================================ */
-
-.order-section {
-    padding: 60px 0;
-}
-
-.order-container {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.order-section h2 {
-    font-size: 2.2em;
-    margin-bottom: 15px;
-    text-align: center;
-    color: var(--text-dark);
-}
-
-.order-intro {
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 30px;
-    font-size: 1.05em;
-}
-
-.pricing-highlight-order {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--text-dark) 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 1.2em;
-    font-weight: 700;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-.order-intro {
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 40px;
-    font-size: 1.05em;
-}
-
-/* ============================================
-   Form Styles
-   ============================================ */
-
-.order-form {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-}
-
-@media (max-width: 600px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 0.95em;
-}
-
-input[type="text"],
-input[type="tel"],
-input[type="email"],
-select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 1em;
-    font-family: inherit;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input[type="text"]:focus,
-input[type="tel"]:focus,
-input[type="email"]:focus,
-select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-select {
-    cursor: pointer;
-    background-color: white;
-}
-
-/* Checkbox Group */
-.checkbox-group {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-top: 30px;
-}
-
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    cursor: pointer;
-    accent-color: var(--primary-color);
-}
-
-.checkbox-label {
-    margin: 0;
-    font-weight: 400;
-    font-size: 0.95em;
-    cursor: pointer;
-    line-height: 1.5;
-}
-
-/* ============================================
-   Submit Button
-   ============================================ */
-
-.submit-btn {
-    width: 100%;
-    padding: 16px 18px;
-    margin-top: 30px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.15em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    box-shadow: 0 10px 30px rgba(37,99,235,0.16);
-}
-
-.submit-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(37,99,235,0.18);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
-
-/* ============================================
-   Confirmation Message
-   ============================================ */
-
-.confirmation-message {
-    background: white;
-    border: 2px solid var(--accent-color);
-    border-radius: 12px;
-    padding: 40px;
-    text-align: center;
-    box-shadow: var(--shadow-lg);
-}
-
-.confirmation-message.hidden {
-    display: none;
-}
-
-.confirmation-content {
-    padding: 20px;
-}
-
-.success-icon {
-    font-size: 4em;
-    color: var(--accent-color);
-    margin-bottom: 20px;
-}
-
-.confirmation-message h3 {
-    font-size: 1.8em;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-}
-
-.confirmation-message p {
-    color: var(--text-light);
-    margin-bottom: 15px;
-    font-size: 1em;
-}
-
-.confirmation-details {
-    font-weight: 500;
-    color: var(--text-dark);
-    margin-bottom: 20px;
-}
-
-.confirmation-steps {
-    list-style: none;
-    text-align: left;
-    max-width: 400px;
-    margin: 20px auto;
-    background: var(--light-bg);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.confirmation-steps li {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-dark);
-}
-
-.confirmation-steps li:last-child {
-    border-bottom: none;
-}
-
-.confirmation-steps li::before {
-    content: "✓ ";
-    color: var(--accent-color);
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.confirmation-wait {
-    background: #f0fdf4;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    font-size: 0.95em;
-}
-
-.new-order-btn {
-    margin-top: 25px;
-    padding: 12px 30px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.new-order-btn:hover {
-    background: var(--primary-dark);
-    transform: translateY(-2px);
-}
-
-/* ============================================
-   Footer
-   ============================================ */
-
-.footer {
-    background: var(--text-dark);
-    color: white;
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 60px;
-}
-
-.footer p {
-    margin: 8px 0;
-    font-size: 0.9em;
-    opacity: 0.9;
-}
-
-/* ============================================
-   Responsive Design
-   ============================================ */
-
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 25px;
-    }
-}
-
-@media (max-width: 992px) {
-    .header-top {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .logo {
-        text-align: center;
-    }
-
-    .language-switcher {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .intro-section h2,
-    .features-section h2,
-    .reviews-section h2,
-    .audience-section h2,
-    .order-section h2 {
-        font-size: 2em;
-    }
-
-    .kit-highlights {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .reviews-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header {
-        padding: 20px 0;
-    }
-
-    .logo h1 {
-        font-size: 1.8em;
-    }
-
-    .tagline {
-        font-size: 0.8em;
-    }
-
-    .lang-btn {
-        padding: 7px 12px;
-        font-size: 0.75em;
-    }
-
-    .pricing-highlight-order {
-        font-size: 1em;
-        padding: 15px;
-        margin-bottom: 25px;
-    }
-
-    .intro-section,
-    .features-section,
-    .reviews-section,
-    .audience-section {
-        padding: 40px 0;
-    }
-
-    .order-section {
-        padding: 40px 0;
-    }
-
-    .intro-section h2,
-    .features-section h2,
-    .reviews-section h2,
-    .audience-section h2,
-    .order-section h2 {
-        font-size: 1.6em;
-        margin-bottom: 30px;
-    }
-
-    .intro-description {
-        font-size: 0.95em;
-    }
-
-    .kit-highlights {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .highlight {
-        padding: 20px;
-    }
-
-    .highlight .icon {
-        font-size: 2em;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .feature-card {
-        padding: 20px;
-    }
-
-    .reviews-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .review-card {
-        padding: 20px;
-    }
-
-    .order-form {
-        padding: 20px;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .checkbox-group {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-    }
-
-    .submit-btn {
-        padding: 12px;
-        font-size: 1em;
-    }
-
-    .container {
-        padding: 0 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .header {
-        padding: 15px 0;
-    }
-
-    .logo h1 {
-        font-size: 1.4em;
-    }
-
-    .logo h1 i {
-        font-size: 1.2em;
-    }
-
-    .tagline {
-        font-size: 0.75em;
-        line-height: 1.3;
-    }
-
-    .pricing-highlight-order {
-        font-size: 0.9em;
-        padding: 12px;
-        margin-bottom: 20px;
-    }
-
-    .language-switcher {
-        gap: 5px;
-        width: 100%;
-    }
-
-    .lang-btn {
-        padding: 6px 10px;
-        font-size: 0.7em;
-        flex: 1;
-        text-align: center;
-    }
-
-    .intro-section,
-    .features-section,
-    .reviews-section,
-    .audience-section,
-    .order-section {
-        padding: 30px 0;
-    }
-
-    .intro-section h2,
-    .features-section h2,
-    .reviews-section h2,
-    .audience-section h2,
-    .order-section h2 {
-        font-size: 1.3em;
-        margin-bottom: 20px;
-    }
-
-    .reviews-intro {
-        font-size: 0.9em;
-    }
-
-    .intro-description {
-        font-size: 0.9em;
-    }
-
-    .kit-highlights {
-        gap: 15px;
-    }
-
-    .highlight {
-        padding: 15px;
-    }
-
-    .highlight .icon {
-        font-size: 1.8em;
-        margin-bottom: 10px;
-    }
-
-    .highlight p {
-        font-size: 0.85em;
-    }
-
-    .feature-card {
-        padding: 15px;
-    }
-
-    .feature-icon {
-        font-size: 1.8em;
-    }
-
-    .feature-card h3 {
-        font-size: 1em;
-        margin-bottom: 10px;
-    }
-
-    .feature-card p {
-        font-size: 0.85em;
-    }
-
-    .audience-list li {
-        padding: 12px 15px;
-        font-size: 0.9em;
-    }
-
-    .audience-note {
-        padding: 15px;
-        font-size: 0.9em;
-    }
-
-    .review-card {
-        padding: 15px;
-    }
-
-    .review-text {
-        font-size: 0.9em;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-
-    .review-author {
-        gap: 10px;
-        padding-top: 15px;
-    }
-
-    .author-info h4 {
-        font-size: 0.95em;
-    }
-
-    .author-info p {
-        font-size: 0.8em;
-    }
-
-    label {
-        font-size: 0.85em;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    select {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .order-form {
-        padding: 15px;
-    }
-
-    .checkbox-label {
-        font-size: 0.85em;
-    }
-
-    .submit-btn {
-        padding: 11px;
-        font-size: 0.95em;
-        margin-top: 20px;
-    }
-
-    .new-order-btn {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-
-    .confirmation-message h3 {
-        font-size: 1.4em;
-    }
-
-    .confirmation-steps {
-        padding: 15px;
-        margin: 15px auto;
-    }
-
-    .confirmation-steps li {
-        padding: 8px 0;
-        font-size: 0.9em;
-    }
-
-    .confirmation-wait {
-        padding: 12px;
-        font-size: 0.85em;
-    }
-
-    .footer p {
-        font-size: 0.85em;
-    }
-
-    .container {
-        padding: 0 12px;
-    }
-}
-
-@media (max-width: 360px) {
-    .logo h1 {
-        font-size: 1.2em;
-    }
-
-    .tagline {
-        font-size: 0.7em;
-    }
-
-    .lang-btn {
-        padding: 5px 8px;
-        font-size: 0.65em;
-    }
-
-    .intro-section h2,
-    .features-section h2,
-    .reviews-section h2,
-    .audience-section h2,
-    .order-section h2 {
-        font-size: 1.1em;
-    }
-
-    label {
-        font-size: 0.8em;
-    }
-
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    select {
-        font-size: 13px;
-    }
-}
-
-/* ============================================
-   Mobile Menu Optimization
-   ============================================ */
-
-@media (hover: none) and (pointer: coarse) {
-    .lang-btn:active {
-        background-color: white;
-        color: var(--primary-color);
-    }
-
-    .highlight:active,
-    .feature-card:active,
-    .review-card:active {
-        transform: translateY(-2px);
-    }
-}
-/* ==========================
-   Laptop (992px - 1400px) tweaks
-   ========================== */
-@media (min-width: 992px) and (max-width: 1400px) {
-    .container { max-width: 1100px; padding: 0 28px; }
-    .header { padding: 20px 0; }
-    .header-top { align-items: center; }
-    .logo { min-width: 220px; }
-    .logo h1 { font-size: 2rem; }
-    .tagline { font-size: 0.95em; }
-
-    .pricing-display { gap: 28px; margin: 60px 0; align-items: stretch; }
-    .price-item { min-width: 240px; padding: 32px; border-radius: calc(var(--base-radius) + 4px); }
-
-    .features-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .intro-card { padding: 60px; border-radius: 20px; }
-    .intro-description { font-size: 1.05rem; max-width: 900px; }
-
-    .order-form { max-width: 720px; margin: 0 auto; }
-    .form-row { gap: 22px; }
-
-    .feature-card { padding: 26px; }
-    .feature-icon { font-size: 2.1em; }
-
-    .footer { padding: 40px 0; }
-}
-
+           MODERN DESIGN SYSTEM - 2024
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette */
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --accent-light: #34d399;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --gradient-blue: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            
+            /* Neutrals */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Semantic Colors */
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border: #e5e7eb;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Container */
+            --container-max: 1280px;
+            --container-padding: 1.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            overflow-x: hidden;
+        }
+
+        /* Typography Scale */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+        h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+
+        p {
+            font-size: clamp(1rem, 1.5vw, 1.125rem);
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ============================================
+           HEADER - MODERN GLASSMORPHISM
+           ============================================ */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            transition: all var(--transition-base);
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-4) 0;
+            gap: var(--space-6);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-blue);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: transform var(--transition-base);
+        }
+
+        .logo-icon:hover {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .logo-text h1 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-1);
+        }
+
+        .logo-text .tagline {
+            font-size: clamp(0.75rem, 1vw, 0.875rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: var(--space-2);
+            background: var(--gray-100);
+            padding: var(--space-1);
+            border-radius: var(--radius-full);
+        }
+
+        .lang-btn {
+            padding: var(--space-2) var(--space-4);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            white-space: nowrap;
+        }
+
+        .lang-btn:hover {
+            color: var(--primary);
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--gray-100);
+            border: none;
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+
+        /* ============================================
+           HERO SECTION - MODERN & ENGAGING
+           ============================================ */
+
+        .hero-section {
+            position: relative;
+            padding: var(--space-20) 0;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: white;
+            padding: var(--space-2) var(--space-5);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-6);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge i {
+            color: var(--accent);
+        }
+
+        .hero-title {
+            margin-bottom: var(--space-6);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-10);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* ============================================
+           PRICING CARDS - PREMIUM DESIGN
+           ============================================ */
+
+        .pricing-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: var(--space-6);
+            margin: var(--space-12) 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-xl);
+            border: 2px solid var(--gray-200);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-blue);
+            transform: scaleX(0);
+            transition: transform var(--transition-base);
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary);
+        }
+
+        .price-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .price-card.featured {
+            background: var(--gradient-success);
+            color: white;
+            border: none;
+            transform: scale(1.08);
+            box-shadow: 0 30px 60px -12px rgba(16, 185, 129, 0.4);
+        }
+
+        .price-card.featured:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .price-card.featured::before {
+            display: none;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: var(--space-2) var(--space-12);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transform: rotate(45deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-4);
+            opacity: 0.9;
+        }
+
+        .price-card.featured .price-label {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .price-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-2);
+        }
+
+        .price-amount .currency {
+            font-size: 2rem;
+            margin-top: var(--space-2);
+        }
+
+        .price-card.original .price-amount {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* ============================================
+           FEATURES SECTION - CARD GRID
+           ============================================ */
+
+        .section {
+            padding: var(--space-20) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--space-16);
+        }
+
+        .section-title {
+            margin-bottom: var(--space-4);
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-blue);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-lg);
+            transition: transform var(--transition-base);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .feature-title {
+            font-size: 1.375rem;
+            margin-bottom: var(--space-3);
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           REVIEWS SECTION - TESTIMONIALS
+           ============================================ */
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .review-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: all var(--transition-base);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-5);
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .review-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .review-author h4 {
+            font-size: 1.125rem;
+            margin-bottom: var(--space-1);
+        }
+
+        .review-author p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .review-rating {
+            display: flex;
+            gap: var(--space-1);
+            color: #fbbf24;
+            font-size: 1.125rem;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+            flex-grow: 1;
+        }
+
+        /* ============================================
+           TARGET AUDIENCE SECTION
+           ============================================ */
+
+        .audience-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            list-style: none;
+        }
+
+        .audience-item {
+            background: white;
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+        }
+
+        .audience-item:hover {
+            transform: translateX(8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .audience-item strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .audience-note {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl);
+            border: 2px dashed var(--primary);
+            margin-top: var(--space-8);
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           ORDER FORM - MODERN & CLEAN
+           ============================================ */
+
+        .order-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.03) 0%, rgba(118, 75, 162, 0.03) 100%);
+        }
+
+        .order-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .order-form {
+            background: white;
+            padding: var(--space-10);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-2xl);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-6);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all var(--transition-fast);
+            background: var(--bg-primary);
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-label {
+            font-weight: 400;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            line-height: 1.6;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: var(--space-5) var(--space-6);
+            margin-top: var(--space-8);
+            background: var(--gradient-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* ============================================
+           CONFIRMATION MESSAGE
+           ============================================ */
+
+        .confirmation-message {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: var(--space-12);
+            text-align: center;
+            box-shadow: var(--shadow-2xl);
+            border: 3px solid var(--accent);
+        }
+
+        .confirmation-message.hidden {
+            display: none;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-success);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            margin: 0 auto var(--space-6);
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confirmation-message h3 {
+            color: var(--accent);
+            margin-bottom: var(--space-4);
+        }
+
+        .confirmation-steps {
+            list-style: none;
+            text-align: left;
+            max-width: 500px;
+            margin: var(--space-8) auto;
+            background: var(--bg-secondary);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+        }
+
+        .confirmation-steps li {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .confirmation-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .confirmation-steps li::before {
+            content: "✓";
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: white;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .new-order-btn {
+            margin-top: var(--space-8);
+            padding: var(--space-4) var(--space-8);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .new-order-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: var(--space-16) 0;
+            margin-top: var(--space-20);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-4);
+        }
+
+        .footer p {
+            color: var(--gray-400);
+            font-size: 0.9375rem;
+            margin: var(--space-2) 0;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN - MOBILE FIRST
+           ============================================ */
+
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 1rem;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .logo-section {
+                flex: 1;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .language-switcher {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-section {
+                padding: var(--space-16) 0;
+            }
+
+            .pricing-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .price-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .price-card.featured {
+                transform: scale(1);
+            }
+
+            .features-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .order-form {
+                padding: var(--space-6);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: var(--space-2) var(--space-4);
+            }
+
+            .price-amount {
+                font-size: 2.5rem;
+            }
+
+            .featured-badge {
+                font-size: 0.625rem;
+                padding: var(--space-1) var(--space-10);
+            }
+        }
+
+        /* ============================================
+           SMOOTH SCROLL ANIMATIONS
+           ============================================ */
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           UTILITY ANIMATIONS
+           ============================================ */
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .shimmer {
+            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background-size: 1000px 100%;
+        }
+
+        /* ============================================
+           RTL SUPPORT
+           ============================================ */
+
+        body[dir="rtl"] {
+            direction: rtl;
+        }
+
+        body[dir="rtl"] .feature-card,
+        body[dir="rtl"] .review-card {
+            text-align: right;
+        }
+
+        body[dir="rtl"] .audience-item {
+            border-left: none;
+            border-right: 4px solid var(--primary);
+        }
+
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+
+        @media print {
+            .header,
+            .footer,
+            .language-switcher,
+            .order-section {
+                display: none;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Header/Navigation -->
-    <header class="header">
+    <!-- Header -->
+    <header class="header" id="header">
         <div class="container">
-            <div class="header-top">
-                <div class="logo">
-                    <h1><i class="fas fa-graduation-cap"></i> EduKit Pro</h1>
-                    <p class="tagline" data-en="Complete Educational Materials for Moroccan Primary Schools"
-                        data-fr="Matériaux éducatifs complets pour les écoles primaires marocaines"
-                        data-ar="مواد تعليمية شاملة للمدارس الابتدائية بالمغرب">Complete Educational Materials for
-                        Moroccan Primary Schools</p>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>EduKit Pro</h1>
+                        <p class="tagline" data-en="Complete Educational Kit for Moroccan Teachers" data-fr="Kit Éducatif Complet pour les Enseignants Marocains" data-ar="مجموعة تعليمية كاملة للمعلمين المغاربة">Complete Educational Kit for Moroccan Teachers</p>
+                    </div>
                 </div>
+
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
                 <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en">English</button>
-                    <button class="lang-btn" data-lang="fr">Français</button>
-                    <button class="lang-btn" data-lang="ar">العربية</button>
+                    <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
+                    <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
+                    <button class="lang-btn" data-lang="ar">🇲🇦 العربية</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Product Introduction Section -->
-        <section class="intro-section">
-            <div class="intro-content intro-card">
-                <h2 data-en="Welcome to EduKit Pro" data-fr="Bienvenue sur EduKit Pro"
-                    data-ar="أهلا وسهلا بك في EduKit Pro">Welcome to EduKit Pro</h2>
-                <p class="intro-description"
-                    data-en="EduKit Pro is a comprehensive educational resource package specifically designed for Moroccan primary school teachers. This all-in-one kit provides educators with carefully curated materials aligned with Moroccan curriculum standards to make classroom instruction more engaging and effective."
-                    data-fr="EduKit Pro est un ensemble complet de ressources éducatives spécialement conçu pour les enseignants du primaire marocains. Ce kit tout-en-un fournit aux éducateurs des matériaux soigneusement sélectionnés alignés sur les normes du curriculum marocain pour rendre l'enseignement en classe plus attrayant et efficace."
-                    data-ar="EduKit Pro عبارة عن مجموعة شاملة من الموارد التعليمية مصممة خصيصاً لمعلمي المدارس الابتدائية المغربية. توفر هذه الحقيبة الشاملة للمعلمين مواد منتقاة بعناية متوافقة مع معايير المناهج المغربية لجعل التدريس في الفصل الدراسي أكثر جاذبية وفعالية.">
-                    EduKit Pro is a comprehensive educational resource package specifically designed for Moroccan
-                    primary school teachers. This all-in-one kit provides educators with carefully curated materials
-                    aligned with Moroccan curriculum standards to make classroom instruction more engaging and
-                    effective.</p>
-                <div class="pricing-display">
-                    <div class="price-item original">
-                        <span class="label" data-en="Original Price" data-fr="Prix original"
-                            data-ar="السعر الأصلي">Original Price</span>
-                        <span class="price-strikethrough">250 DH</span>
-                    </div>
-                    <div class="price-separator">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    <div class="price-item discount">
-                        <span class="label" data-en="LIMITED OFFER" data-fr="OFFRE LIMITÉE" data-ar="عرض محدود">LIMITED
-                            OFFER</span>
-                        <span class="price-final">150 DH</span>
-                        <span class="discount-tag" data-en="Save 40% (100 DH)" data-fr="Économisez 40% (100 DH)"
-                            data-ar="وفر 40% (100 درهم)">Save 40% (100 DH)</span>
-                    </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span data-en="Trusted by 5000+ Teachers" data-fr="Approuvé par plus de 5000 enseignants" data-ar="موثوق به من قبل أكثر من 5000 معلم">Trusted by 5000+ Teachers</span>
                 </div>
-                <div class="kit-highlights">
-                    <div class="highlight">
-                        <span class="icon"><i class="fas fa-book"></i></span>
-                        <p><strong data-en="PDF Educational Materials" data-fr="Matériaux éducatifs PDF"
-                                data-ar="مواد تعليمية بصيغة PDF">PDF Educational Materials</strong></p>
-                        <p data-en="Complete lesson plans, worksheets, and teaching guides"
-                            data-fr="Plans de cours complets, feuilles de travail et guides d'enseignement"
-                            data-ar="خطط دروس شاملة وأوراق عمل وأدلة تدريس">Complete lesson plans, worksheets, and
-                            teaching guides</p>
+
+                <h1 class="hero-title text-gradient" data-en="Transform Your Teaching Experience" data-fr="Transformez votre expérience d'enseignement" data-ar="حوّل تجربة التدريس الخاصة بك">Transform Your Teaching Experience</h1>
+
+                <p class="hero-description" data-en="Everything you need to create engaging lessons, manage your classroom efficiently, and inspire your students – all in one comprehensive kit." data-fr="Tout ce dont vous avez besoin pour créer des leçons captivantes, gérer votre classe efficacement et inspirer vos élèves - le tout dans un kit complet." data-ar="كل ما تحتاجه لإنشاء دروس جذابة وإدارة صفك بكفاءة وإلهام طلابك - كل ذلك في مجموعة شاملة واحدة.">Everything you need to create engaging lessons, manage your classroom efficiently, and inspire your students – all in one comprehensive kit.</p>
+
+                <!-- Pricing Cards -->
+                <div class="pricing-wrapper">
+                    <div class="price-card original">
+                        <p class="price-label" data-en="Original Price" data-fr="Prix Original" data-ar="السعر الأصلي">Original Price</p>
+                        <div class="price-amount">
+                            <span class="currency">DH</span>
+                            <span>499</span>
+                        </div>
                     </div>
-                    <div class="highlight">
-                        <span class="icon"><i class="fas fa-music"></i></span>
-                        <p><strong data-en="Educational Songs" data-fr="Chansons éducatives"
-                                data-ar="أغاني تعليمية">Educational Songs</strong></p>
-                        <p data-en="Engaging audio resources to reinforce learning concepts"
-                            data-fr="Ressources audio attrayantes pour renforcer les concepts d'apprentissage"
-                            data-ar="موارد صوتية جذابة لتعزيز مفاهيم التعلم">Engaging audio resources to reinforce
-                            learning concepts</p>
-                    </div>
-                    <div class="highlight">
-                        <span class="icon"><i class="fas fa-chalkboard-user"></i></span>
-                        <p><strong data-en="Teacher Focused" data-fr="Centré sur l'enseignant"
-                                data-ar="موجه للمعلمين">Teacher Focused</strong></p>
-                        <p data-en="Designed specifically for primary school educators"
-                            data-fr="Conçu spécifiquement pour les éducateurs des écoles primaires"
-                            data-ar="مصمم خصيصا لمعلمي المدارس الابتدائية">Designed specifically for primary school
-                            educators</p>
+
+                    <div class="price-card featured">
+                        <div class="featured-badge">BEST OFFER</div>
+                        <p class="price-label" data-en="Special Discount" data-fr="Remise Spéciale" data-ar="خصم خاص">Special Discount</p>
+                        <div class="price-amount">
+                            <span class="currency">DH</span>
+                            <span>299</span>
+                        </div>
+                        <div class="discount-badge" data-en="Save 40% Today!" data-fr="Économisez 40% aujourd'hui!" data-ar="وفّر 40% اليوم!">Save 40% Today!</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Features and Benefits Section -->
-        <section class="features-section">
-            <h2 data-en="Why Choose EduKit Pro?" data-fr="Pourquoi choisir EduKit Pro ?"
-                data-ar="لماذا تختار EduKit Pro؟">Why Choose EduKit Pro?</h2>
+    <!-- Introduction Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title" data-en="Why Choose EduKit Pro?" data-fr="Pourquoi choisir EduKit Pro?" data-ar="لماذا تختار EduKit Pro؟">Why Choose EduKit Pro?</h2>
+                <p class="section-subtitle" data-en="A complete educational solution designed specifically for Moroccan teachers" data-fr="Une solution éducative complète conçue spécifiquement pour les enseignants marocains" data-ar="حل تعليمي كامل مصمم خصيصًا للمعلمين المغاربة">A complete educational solution designed specifically for Moroccan teachers</p>
+            </div>
+
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Comprehensive Content" data-fr="Contenu complet" data-ar="محتوى شامل">Comprehensive
-                        Content</h3>
-                    <p data-en="Complete curriculum-aligned materials covering all major subjects for primary grades"
-                        data-fr="Matériaux alignés sur le curriculum couvrant tous les sujets majeurs pour les classes primaires"
-                        data-ar="مواد محاذاة للمناهج الدراسية تغطي جميع المواد الرئيسية للصفوف الابتدائية">Complete
-                        curriculum-aligned materials covering all major subjects for primary grades</p>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Comprehensive Materials" data-fr="Matériaux Complets" data-ar="مواد شاملة">Comprehensive Materials</h3>
+                    <p class="feature-description" data-en="Over 500+ ready-to-use lesson plans, worksheets, and educational resources aligned with the Moroccan curriculum." data-fr="Plus de 500 plans de cours, feuilles de travail et ressources éducatives prêts à l'emploi alignés sur le programme marocain." data-ar="أكثر من 500 خطة درس وورقة عمل وموارد تعليمية جاهزة للاستخدام متوافقة مع المنهج المغربي.">Over 500+ ready-to-use lesson plans, worksheets, and educational resources aligned with the Moroccan curriculum.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Ready to Use" data-fr="Prêt à l'emploi" data-ar="جاهز للاستخدام">Ready to Use</h3>
-                    <p data-en="No preparation needed - materials are formatted and ready for immediate classroom use"
-                        data-fr="Aucune préparation nécessaire - les matériaux sont formatés et prêts pour une utilisation immédiate en classe"
-                        data-ar="لا تحضير مطلوب - المواد مصيغة وجاهزة للاستخدام الفوري في الفصل الدراسي">No preparation
-                        needed - materials are formatted and ready for immediate classroom use</p>
+
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Save Hours Weekly" data-fr="Économisez des Heures par Semaine" data-ar="وفّر ساعات أسبوعيًا">Save Hours Weekly</h3>
+                    <p class="feature-description" data-en="Cut your preparation time in half with our organized, print-ready materials that you can use immediately in your classroom." data-fr="Réduisez de moitié votre temps de préparation avec nos matériaux organisés et prêts à imprimer que vous pouvez utiliser immédiatement dans votre classe." data-ar="قلّل وقت التحضير إلى النصف باستخدام موادنا المنظمة والجاهزة للطباعة التي يمكنك استخدامها فورًا في صفك.">Cut your preparation time in half with our organized, print-ready materials that you can use immediately in your classroom.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Interactive Learning" data-fr="Apprentissage interactif" data-ar="التعلم التفاعلي">
-                        Interactive Learning</h3>
-                    <p data-en="Combines visual materials with audio songs to create multi-sensory learning experiences"
-                        data-fr="Combine les matériaux visuels avec des chansons audio pour créer des expériences d'apprentissage multi-sensorielles"
-                        data-ar="يجمع بين المواد المرئية والأغاني الصوتية لإنشاء تجارب تعليمية متعددة الحواس">Combines
-                        visual materials with audio songs to create multi-sensory learning experiences</p>
+
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Multilingual Support" data-fr="Support Multilingue" data-ar="دعم متعدد اللغات">Multilingual Support</h3>
+                    <p class="feature-description" data-en="All materials available in Arabic, French, and English to support Morocco's trilingual education system." data-fr="Tous les matériaux disponibles en arabe, français et anglais pour soutenir le système éducatif trilingue du Maroc." data-ar="جميع المواد متاحة باللغات العربية والفرنسية والإنجليزية لدعم نظام التعليم ثلاثي اللغات في المغرب.">All materials available in Arabic, French, and English to support Morocco's trilingual education system.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Time Saving" data-fr="Gain de temps" data-ar="توفير الوقت">Time Saving</h3>
-                    <p data-en="Reduces lesson preparation time, allowing teachers to focus on student engagement"
-                        data-fr="Réduit le temps de préparation des leçons, permettant aux enseignants de se concentrer sur l'engagement des élèves"
-                        data-ar="يقلل وقت تحضير الدروس، مما يسمح للمعلمين بالتركيز على تفاعل الطلاب">Reduces lesson
-                        preparation time, allowing teachers to focus on student engagement</p>
+
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Track Progress" data-fr="Suivre les Progrès" data-ar="تتبع التقدم">Track Progress</h3>
+                    <p class="feature-description" data-en="Assessment tools and templates to monitor student progress and identify areas that need attention." data-fr="Outils d'évaluation et modèles pour surveiller les progrès des élèves et identifier les domaines nécessitant une attention." data-ar="أدوات تقييم وقوالب لمراقبة تقدم الطلاب وتحديد المجالات التي تحتاج إلى اهتمام.">Assessment tools and templates to monitor student progress and identify areas that need attention.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Classroom Proven" data-fr="Éprouvé en classe" data-ar="مثبت في الفصل الدراسي">Classroom
-                        Proven</h3>
-                    <p data-en="Tested and refined by experienced educators in actual classroom settings"
-                        data-fr="Testé et affiné par des éducateurs expérimentés dans des salles de classe réelles"
-                        data-ar="اختبر وحسنه معلمون ذوو خبرة في بيئات فصول دراسية فعلية">Tested and refined by
-                        experienced educators in actual classroom settings</p>
+
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Parent Communication" data-fr="Communication Parentale" data-ar="التواصل مع أولياء الأمور">Parent Communication</h3>
+                    <p class="feature-description" data-en="Templates for parent-teacher communication, progress reports, and meeting notes in multiple languages." data-fr="Modèles de communication enseignant-parent, rapports de progrès et notes de réunion en plusieurs langues." data-ar="قوالب للتواصل بين المعلم وولي الأمر، تقارير التقدم، وملاحظات الاجتماعات بلغات متعددة.">Templates for parent-teacher communication, progress reports, and meeting notes in multiple languages.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3 data-en="Affordable Solution" data-fr="Solution abordable" data-ar="حل بأسعار معقولة">Affordable
-                        Solution</h3>
-                    <p data-en="Cost-effective alternative to purchasing multiple resources separately"
-                        data-fr="Alternative rentable à l'achat de plusieurs ressources séparément"
-                        data-ar="بديل فعال من حيث التكلفة لشراء موارد متعددة بشكل منفصل">Cost-effective alternative to
-                        purchasing multiple resources separately</p>
+
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title" data-en="Creative Activities" data-fr="Activités Créatives" data-ar="أنشطة إبداعية">Creative Activities</h3>
+                    <p class="feature-description" data-en="Engaging activities, games, and projects that make learning fun and memorable for students of all ages." data-fr="Activités, jeux et projets engageants qui rendent l'apprentissage amusant et mémorable pour les élèves de tous âges." data-ar="أنشطة وألعاب ومشاريع جذابة تجعل التعلم ممتعًا ولا يُنسى لطلاب جميع الأعمار.">Engaging activities, games, and projects that make learning fun and memorable for students of all ages.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Reviews & Testimonials Section -->
-        <section class="reviews-section">
-            <h2 data-en="What Moroccan Teachers Say" data-fr="Ce que disent les enseignants marocains"
-                data-ar="ما يقوله معلمو المغرب">What Moroccan Teachers Say</h2>
-            <p class="reviews-intro"
-                data-en="Join hundreds of satisfied Moroccan educators who have transformed their classrooms"
-                data-fr="Rejoignez des centaines d'éducateurs marocains satisfaits qui ont transformé leurs salles de classe"
-                data-ar="انضم إلى مئات المعلمين المغربيين الراضين الذين حولوا فصولهم الدراسية">Join hundreds of
-                satisfied Moroccan educators who have transformed their classrooms</p>
+    <!-- Reviews Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title" data-en="What Teachers Are Saying" data-fr="Ce que disent les enseignants" data-ar="ماذا يقول المعلمون">What Teachers Are Saying</h2>
+                <p class="section-subtitle" data-en="Join thousands of satisfied teachers across Morocco" data-fr="Rejoignez des milliers d'enseignants satisfaits à travers le Maroc" data-ar="انضم إلى آلاف المعلمين الراضين في جميع أنحاء المغرب">Join thousands of satisfied teachers across Morocco</p>
+            </div>
+
             <div class="reviews-grid">
-                <div class="review-card">
+                <div class="review-card scroll-reveal">
                     <div class="review-rating">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -1759,24 +1209,17 @@ input[type="checkbox"] {
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <p class="review-text"
-                        data-en="EduKit Pro has completely changed how I teach! The materials are well-organized, easy to use, and my students are much more engaged. The songs are particularly effective for younger grades."
-                        data-fr="EduKit Pro a complètement changé ma façon d'enseigner ! Les matériaux sont bien organisés, faciles à utiliser, et mes élèves sont beaucoup plus engagés. Les chansons sont particulièrement efficaces pour les classes inférieures."
-                        data-ar="غيرت EduKit Pro تماماً طريقة تدريسي! المواد منظمة جيداً وسهلة الاستخدام، وطلابي أكثر انخراطاً. الأغاني فعالة بشكل خاص للصفوف الأصغر سناً.">
-                        EduKit Pro has completely changed how I teach! The materials are well-organized, easy to use,
-                        and my students are much more engaged. The songs are particularly effective for younger grades.
-                    </p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Fatima Bennani" data-fr="Fatima Bennani" data-ar="فاطمة بناني">Fatima Bennani
-                            </h4>
-                            <p data-en="Primary Teacher, Casablanca" data-fr="Professeur des écoles, Casablanca"
-                                data-ar="معلمة في المدرسة الابتدائية، الدار البيضاء">Primary Teacher, Casablanca</p>
+                    <p class="review-text" data-en="This kit has completely transformed how I prepare for my classes. I save hours every week and my students are more engaged than ever!" data-fr="Ce kit a complètement transformé ma façon de préparer mes cours. J'économise des heures chaque semaine et mes élèves sont plus engagés que jamais!" data-ar="لقد غيّرت هذه المجموعة تمامًا طريقة تحضيري للصفوف. أوفر ساعات كل أسبوع وطلابي أكثر انخراطًا من أي وقت مضى!">This kit has completely transformed how I prepare for my classes. I save hours every week and my students are more engaged than ever!</p>
+                    <div class="review-header">
+                        <div class="review-avatar">FA</div>
+                        <div class="review-author">
+                            <h4 data-en="Fatima Alaoui" data-fr="Fatima Alaoui" data-ar="فاطمة العلوي">Fatima Alaoui</h4>
+                            <p data-en="Primary School Teacher, Casablanca" data-fr="Enseignante d'école primaire, Casablanca" data-ar="معلمة مدرسة ابتدائية، الدار البيضاء">Primary School Teacher, Casablanca</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card scroll-reveal">
                     <div class="review-rating">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -1784,23 +1227,17 @@ input[type="checkbox"] {
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <p class="review-text"
-                        data-en="As someone teaching multiple grades, this kit is a lifesaver! The materials are bilingual (French and Arabic) which aligns perfectly with the Moroccan curriculum. I've saved countless hours of preparation time."
-                        data-fr="En tant que personne enseignant plusieurs niveaux, ce kit est une aubaine ! Les matériaux sont bilingues (français et arabe) ce qui s'aligne parfaitement avec le curriculum marocain. J'ai économisé d'innombrables heures de temps de préparation."
-                        data-ar="بصفتي مدرسة لعدة صفوف، هذه الحقيبة منقذة! المواد ثنائية اللغة (الفرنسية والعربية) وهذا يتوافق تماماً مع المنهج المغربي. لقد وفرت ساعات لا تحصى من وقت التحضير.">
-                        As someone teaching multiple grades, this kit is a lifesaver! The materials are bilingual
-                        (French and Arabic) which aligns perfectly with the Moroccan curriculum. I've saved countless
-                        hours of preparation time.</p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Hassan Alaoui" data-fr="Hassan Alaoui" data-ar="حسن العلوي">Hassan Alaoui</h4>
-                            <p data-en="Grade 1-3 Teacher, Rabat" data-fr="Professeur des classes 1-3, Rabat"
-                                data-ar="معلم الصفوف 1-3، الرباط">Grade 1-3 Teacher, Rabat</p>
+                    <p class="review-text" data-en="The multilingual materials are perfect for our trilingual education system. My students love the creative activities!" data-fr="Les matériaux multilingues sont parfaits pour notre système éducatif trilingue. Mes élèves adorent les activités créatives!" data-ar="المواد متعددة اللغات مثالية لنظامنا التعليمي ثلاثي اللغات. يحب طلابي الأنشطة الإبداعية!">The multilingual materials are perfect for our trilingual education system. My students love the creative activities!</p>
+                    <div class="review-header">
+                        <div class="review-avatar">KE</div>
+                        <div class="review-author">
+                            <h4 data-en="Karim El Mansouri" data-fr="Karim El Mansouri" data-ar="كريم المنصوري">Karim El Mansouri</h4>
+                            <p data-en="Middle School Teacher, Rabat" data-fr="Enseignant de collège, Rabat" data-ar="معلم مدرسة متوسطة، الرباط">Middle School Teacher, Rabat</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="review-card">
+                <div class="review-card scroll-reveal">
                     <div class="review-rating">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -1808,599 +1245,306 @@ input[type="checkbox"] {
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <p class="review-text"
-                        data-en="The support from the EduKit Pro team has been exceptional! Any questions I had were answered promptly. The materials are of high quality and my students' test scores have improved significantly."
-                        data-fr="Le soutien de l'équipe EduKit Pro a été exceptionnel ! Toutes les questions que j'ai posées ont été répondues rapidement. Les matériaux sont de haute qualité et les résultats de mes élèves aux tests se sont considérablement améliorés."
-                        data-ar="دعم فريق EduKit Pro كان استثنائياً! تمت الإجابة على جميع الأسئلة التي لدي بسرعة. المواد عالية الجودة وتحسنت درجات اختبارات طلابي بشكل كبير.">
-                        The support from the EduKit Pro team has been exceptional! Any questions I had were answered
-                        promptly. The materials are of high quality and my students' test scores have improved
-                        significantly.</p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Amina Rachidi" data-fr="Amina Rachidi" data-ar="أمينة الرشيدي">Amina Rachidi
-                            </h4>
-                            <p data-en="Education Coordinator, Fes" data-fr="Coordinatrice de l'éducation, Fès"
-                                data-ar="منسقة التعليم، فاس">Education Coordinator, Fes</p>
+                    <p class="review-text" data-en="As a new teacher, this kit has been invaluable. It gave me the confidence I needed to create engaging lessons from day one." data-fr="En tant que nouvel enseignant, ce kit a été inestimable. Il m'a donné la confiance dont j'avais besoin pour créer des leçons engageantes dès le premier jour." data-ar="كمعلم جديد، كانت هذه المجموعة لا تقدر بثمن. أعطتني الثقة التي احتجتها لإنشاء دروس جذابة من اليوم الأول.">As a new teacher, this kit has been invaluable. It gave me the confidence I needed to create engaging lessons from day one.</p>
+                    <div class="review-header">
+                        <div class="review-avatar">SA</div>
+                        <div class="review-author">
+                            <h4 data-en="Sara Bennani" data-fr="Sara Bennani" data-ar="سارة البناني">Sara Bennani</h4>
+                            <p data-en="High School Teacher, Marrakech" data-fr="Enseignante de lycée, Marrakech" data-ar="معلمة مدرسة ثانوية، مراكش">High School Teacher, Marrakech</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="review-card">
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="review-text"
-                        data-en="I was skeptical at first, but after using EduKit Pro for a semester, I'm a true believer! My students are more motivated, the classroom atmosphere is better, and I'm less stressed about lesson planning. Highly recommended!"
-                        data-fr="J'étais sceptique au début, mais après avoir utilisé EduKit Pro pendant un semestre, je suis un vrai croyant ! Mes élèves sont plus motivés, l'atmosphère de la classe est meilleure, et je suis moins stressé par la planification des leçons. Hautement recommandé !"
-                        data-ar="كنت متشككاً في البداية، لكن بعد استخدام EduKit Pro لمدة فصل دراسي، أصبحت معتنقاً حقيقياً! طلابي أكثر تحفيزاً، والأجواء في الفصل أفضل، وأنا أقل إجهاداً بشأن تخطيط الدروس. موصى به بشدة!">
-                        I was skeptical at first, but after using EduKit Pro for a semester, I'm a true believer! My
-                        students are more motivated, the classroom atmosphere is better, and I'm less stressed about
-                        lesson planning. Highly recommended!</p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Mohamed El-Fassi" data-fr="Mohamed El-Fassi" data-ar="محمد الفاسي">Mohamed
-                                El-Fassi</h4>
-                            <p data-en="Primary School Principal, Marrakech"
-                                data-fr="Directeur d'école primaire, Marrakech"
-                                data-ar="مدير المدرسة الابتدائية، مراكش">Primary School Principal, Marrakech</p>
+    <!-- Target Audience Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title" data-en="Perfect For Every Teacher" data-fr="Parfait pour chaque enseignant" data-ar="مثالي لكل معلم">Perfect For Every Teacher</h2>
+                <p class="section-subtitle" data-en="Designed to meet the needs of educators at all levels" data-fr="Conçu pour répondre aux besoins des éducateurs à tous les niveaux" data-ar="مصمم لتلبية احتياجات المعلمين على جميع المستويات">Designed to meet the needs of educators at all levels</p>
+            </div>
+
+            <ul class="audience-list">
+                <li class="audience-item scroll-reveal">
+                    <strong data-en="New Teachers:" data-fr="Nouveaux enseignants:" data-ar="معلمون جدد:">New Teachers:</strong>
+                    <span data-en="Get started with confidence using our comprehensive teaching materials" data-fr="Commencez en toute confiance avec nos matériaux pédagogiques complets" data-ar="ابدأ بثقة باستخدام موادنا التعليمية الشاملة">Get started with confidence using our comprehensive teaching materials</span>
+                </li>
+                <li class="audience-item scroll-reveal">
+                    <strong data-en="Experienced Teachers:" data-fr="Enseignants expérimentés:" data-ar="معلمون ذوو خبرة:">Experienced Teachers:</strong>
+                    <span data-en="Refresh your curriculum and discover new teaching strategies" data-fr="Rafraîchissez votre programme et découvrez de nouvelles stratégies d'enseignement" data-ar="جدد منهجك واكتشف استراتيجيات تدريس جديدة">Refresh your curriculum and discover new teaching strategies</span>
+                </li>
+                <li class="audience-item scroll-reveal">
+                    <strong data-en="Private Tutors:" data-fr="Tuteurs privés:" data-ar="مدرسون خصوصيون:">Private Tutors:</strong>
+                    <span data-en="Access quality materials for one-on-one instruction" data-fr="Accédez à des matériaux de qualité pour l'enseignement individuel" data-ar="احصل على مواد عالية الجودة للتدريس الفردي">Access quality materials for one-on-one instruction</span>
+                </li>
+                <li class="audience-item scroll-reveal">
+                    <strong data-en="School Administrators:" data-fr="Administrateurs scolaires:" data-ar="مديرو مدارس:">School Administrators:</strong>
+                    <span data-en="Equip your entire teaching staff with consistent, high-quality resources" data-fr="Équipez tout votre personnel enseignant avec des ressources cohérentes et de haute qualité" data-ar="جهز جميع موظفي التدريس بموارد متسقة وعالية الجودة">Equip your entire teaching staff with consistent, high-quality resources</span>
+                </li>
+            </ul>
+
+            <div class="audience-note scroll-reveal">
+                <p data-en="Whether you teach primary, middle, or high school, EduKit Pro adapts to your specific needs and teaching style. Our materials are flexible, customizable, and designed to enhance your natural teaching abilities." data-fr="Que vous enseigniez au primaire, au collège ou au lycée, EduKit Pro s'adapte à vos besoins spécifiques et à votre style d'enseignement. Nos matériaux sont flexibles, personnalisables et conçus pour améliorer vos capacités d'enseignement naturelles." data-ar="سواء كنت تُدرّس في المرحلة الابتدائية أو المتوسطة أو الثانوية، يتكيف EduKit Pro مع احتياجاتك المحددة وأسلوب التدريس الخاص بك. موادنا مرنة وقابلة للتخصيص ومصممة لتعزيز قدراتك التعليمية الطبيعية.">Whether you teach primary, middle, or high school, EduKit Pro adapts to your specific needs and teaching style. Our materials are flexible, customizable, and designed to enhance your natural teaching abilities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section class="section order-section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title" data-en="Order Your EduKit Pro Today" data-fr="Commandez votre EduKit Pro aujourd'hui" data-ar="اطلب EduKit Pro اليوم">Order Your EduKit Pro Today</h2>
+                <p class="section-subtitle" data-en="Join thousands of teachers who are transforming their classrooms" data-fr="Rejoignez des milliers d'enseignants qui transforment leurs classes" data-ar="انضم إلى آلاف المعلمين الذين يحولون صفوفهم">Join thousands of teachers who are transforming their classrooms</p>
+            </div>
+
+            <div class="order-form-container scroll-reveal">
+                <form class="order-form" id="orderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName" data-en="Full Name *" data-fr="Nom Complet *" data-ar="الاسم الكامل *">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" data-en="Phone Number *" data-fr="Numéro de Téléphone *" data-ar="رقم الهاتف *">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
                         </div>
                     </div>
-                </div>
 
-                <div class="review-card">
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="review-text"
-                        data-en="The PDF materials are beautifully designed and age-appropriate. My Grade 4 students love the interactive worksheets, and parents have commented on how much their children enjoy coming to school now!"
-                        data-fr="Les matériaux PDF sont magnifiquement conçus et appropriés à l'âge. Mes élèves de classe 4 adorent les feuilles de travail interactives, et les parents ont commenté comment leurs enfants aiment maintenant venir à l'école !"
-                        data-ar="مواد PDF مصممة بشكل جميل ومناسبة للعمر. يحب طلابي من الصف الرابع أوراق العمل التفاعلية، وقد علق الآباء على كم يستمتع أطفالهم بالذهاب إلى المدرسة الآن!">
-                        The PDF materials are beautifully designed and age-appropriate. My Grade 4 students love the
-                        interactive worksheets, and parents have commented on how much their children enjoy coming to
-                        school now!</p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Layla Bennani" data-fr="Layla Bennani" data-ar="ليلى بناني">Layla Bennani</h4>
-                            <p data-en="Grade 4 Teacher, Tangier" data-fr="Professeur de classe 4, Tanger"
-                                data-ar="معلمة الصف الرابع، طنجة">Grade 4 Teacher, Tangier</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" data-en="Email Address" data-fr="Adresse Email" data-ar="عنوان البريد الإلكتروني">Email Address</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city" data-en="City *" data-fr="Ville *" data-ar="المدينة *">City *</label>
+                            <select id="city" name="city" required>
+                                <option value="" data-en="Select your city" data-fr="Sélectionnez votre ville" data-ar="اختر مدينتك">Select your city</option>
+                                <option value="Casablanca">Casablanca / الدار البيضاء</option>
+                                <option value="Rabat">Rabat / الرباط</option>
+                                <option value="Marrakech">Marrakech / مراكش</option>
+                                <option value="Fes">Fes / فاس</option>
+                                <option value="Tangier">Tangier / طنجة</option>
+                                <option value="Agadir">Agadir / أكادير</option>
+                                <option value="Meknes">Meknes / مكناس</option>
+                                <option value="Oujda">Oujda / وجدة</option>
+                                <option value="Kenitra">Kenitra / القنيطرة</option>
+                                <option value="Tetouan">Tetouan / تطوان</option>
+                                <option value="Other" data-en="Other" data-fr="Autre" data-ar="أخرى">Other</option>
+                            </select>
                         </div>
                     </div>
-                </div>
 
-                <div class="review-card">
-                    <div class="review-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <div class="form-group">
+                        <label for="address" data-en="Full Address *" data-fr="Adresse Complète *" data-ar="العنوان الكامل *">Full Address *</label>
+                        <input type="text" id="address" name="address" required>
                     </div>
-                    <p class="review-text"
-                        data-en="EduKit Pro is invaluable for differentiated instruction. I can easily adapt the materials for different learning levels in my mixed-ability classroom. This flexibility has been game-changing for inclusive education!"
-                        data-fr="EduKit Pro est inestimable pour l'enseignement différencié. Je peux facilement adapter les matériaux pour différents niveaux d'apprentissage dans ma classe d'aptitudes mixtes. Cette flexibilité a changé la donne pour l'éducation inclusive !"
-                        data-ar="EduKit Pro لا يقدر بثمن للتدريس المتمايز. يمكنني بسهولة تكييف المواد لمستويات تعليم مختلفة في فصلي متعدد الكفاءات. كان هذا المرونة تغييراً كبيراً للتعليم الشامل!">
-                        EduKit Pro is invaluable for differentiated instruction. I can easily adapt the materials for
-                        different learning levels in my mixed-ability classroom. This flexibility has been game-changing
-                        for inclusive education!</p>
-                    <div class="review-author">
-                        <div class="author-info">
-                            <h4 data-en="Yasmine Al-Idrissi" data-fr="Yasmine Al-Idrissi" data-ar="ياسمين الإدريسي">
-                                Yasmine Al-Idrissi</h4>
-                            <p data-en="Special Education Teacher, Meknes"
-                                data-fr="Enseignante en éducation spécialisée, Meknès"
-                                data-ar="معلمة التربية الخاصة، مكناس">Special Education Teacher, Meknes</p>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms" class="checkbox-label" data-en="I agree to the terms and conditions and confirm my order (DH 299 payable upon delivery)" data-fr="J'accepte les termes et conditions et confirme ma commande (299 DH payable à la livraison)" data-ar="أوافق على الشروط والأحكام وأؤكد طلبي (299 درهم مستحقة الدفع عند التسليم)">I agree to the terms and conditions and confirm my order (DH 299 payable upon delivery)</label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" data-en="Complete Order - DH 299" data-fr="Finaliser la Commande - 299 DH" data-ar="إتمام الطلب - 299 درهم">Complete Order - DH 299</button>
+                </form>
+
+                <!-- Confirmation Message -->
+                <div class="confirmation-message hidden" id="confirmationMessage">
+                    <div class="confirmation-content">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
                         </div>
-                    </div>
-                </div>
+                        <h3 data-en="Order Confirmed!" data-fr="Commande Confirmée!" data-ar="تم تأكيد الطلب!">Order Confirmed!</h3>
+                        <p data-en="Thank you for your order!" data-fr="Merci pour votre commande!" data-ar="شكرًا لطلبك!">Thank you for your order!</p>
+                        <p class="confirmation-details" data-en="Your order has been successfully submitted. Here's what happens next:" data-fr="Votre commande a été soumise avec succès. Voici ce qui se passe ensuite:" data-ar="تم تقديم طلبك بنجاح. إليك ما سيحدث بعد ذلك:">Your order has been successfully submitted. Here's what happens next:</p>
 
-                <!-- Target Audience Section -->
-                <section class="audience-section">
-                    <h2 data-en="Who Should Use EduKit Pro?" data-fr="Qui devrait utiliser EduKit Pro ?"
-                        data-ar="من يجب أن يستخدم EduKit Pro؟">Who Should Use EduKit Pro?</h2>
-                    <div class="audience-content">
-                        <p class="audience-intro" data-en="EduKit Pro is specifically designed for:"
-                            data-fr="EduKit Pro est spécifiquement conçu pour :"
-                            data-ar="تم تصميم EduKit Pro خصيصا لـ :">EduKit Pro is specifically designed for:</p>
-                        <ul class="audience-list">
-                            <li><strong data-en="Moroccan Primary School Teachers"
-                                    data-fr="Professeurs marocains des écoles primaires"
-                                    data-ar="معلمو المدارس الابتدائية المغربية">Moroccan Primary School
-                                    Teachers</strong> - <span
-                                    data-en="Looking for comprehensive teaching resources aligned with Moroccan curriculum"
-                                    data-fr="À la recherche de ressources pédagogiques complètes alignées sur le curriculum marocain"
-                                    data-ar="يبحثون عن موارد تدريس شاملة متوافقة مع المنهاج المغربي">Looking for
-                                    comprehensive teaching resources aligned with Moroccan curriculum</span></li>
-                            <li><strong data-en="Moroccan School Educators" data-fr="Éducateurs scolaires marocains"
-                                    data-ar="المعلمون المدرسيون المغربيون">Moroccan School Educators</strong> - <span
-                                    data-en="Who want to enhance their teaching with engaging bilingual materials (French & Arabic)"
-                                    data-fr="Qui souhaitent améliorer leur enseignement avec des matériaux attrayants bilingues (français et arabe)"
-                                    data-ar="الذين يريدون تحسين تدريسهم بمواد جذابة ثنائية اللغة (الفرنسية والعربية)">Who
-                                    want to enhance their teaching with engaging bilingual materials (French &
-                                    Arabic)</span></li>
-                            <li><strong data-en="Homeschool Instructors" data-fr="Instructeurs de l'école à domicile"
-                                    data-ar="مدرسو التعليم المنزلي">Homeschool Instructors</strong> - <span
-                                    data-en="Seeking structured educational programs"
-                                    data-fr="À la recherche de programmes éducatifs structurés"
-                                    data-ar="يسعون وراء برامج تعليمية منظمة">Seeking structured educational
-                                    programs</span></li>
-                            <li><strong data-en="Educational Coordinators" data-fr="Coordonnateurs pédagogiques"
-                                    data-ar="منسقو التعليم">Educational Coordinators</strong> - <span
-                                    data-en="Managing school-wide curriculum implementation"
-                                    data-fr="Gestion de la mise en œuvre du programme scolaire"
-                                    data-ar="إدارة تطبيق المناهج على مستوى المدرسة">Managing school-wide curriculum
-                                    implementation</span></li>
-                            <li><strong data-en="Subject Matter Specialists" data-fr="Spécialistes des matières"
-                                    data-ar="متخصصو المواد">Subject Matter Specialists</strong> - <span
-                                    data-en="Supplementing classroom instruction with additional resources"
-                                    data-fr="Complémenter l'enseignement en classe par des ressources supplémentaires"
-                                    data-ar="تكملة التدريس في الفصل بموارد إضافية">Supplementing classroom instruction
-                                    with additional resources</span></li>
+                        <ul class="confirmation-steps">
+                            <li data-en="We'll call you within 24 hours to confirm your order" data-fr="Nous vous appellerons dans les 24 heures pour confirmer votre commande" data-ar="سنتصل بك في غضون 24 ساعة لتأكيد طلبك">We'll call you within 24 hours to confirm your order</li>
+                            <li data-en="Your EduKit Pro will be shipped immediately" data-fr="Votre EduKit Pro sera expédié immédiatement" data-ar="سيتم شحن EduKit Pro الخاص بك على الفور">Your EduKit Pro will be shipped immediately</li>
+                            <li data-en="Delivery within 2-5 business days" data-fr="Livraison dans les 2-5 jours ouvrables" data-ar="التسليم في غضون 2-5 أيام عمل">Delivery within 2-5 business days</li>
+                            <li data-en="Pay DH 299 upon delivery (Cash on Delivery)" data-fr="Payez 299 DH à la livraison (Paiement à la livraison)" data-ar="ادفع 299 درهم عند التسليم (الدفع عند الاستلام)">Pay DH 299 upon delivery (Cash on Delivery)</li>
                         </ul>
-                        <p class="audience-note"
-                            data-en="Whether you're an experienced educator or new to teaching primary school, EduKit Pro provides the resources you need to create an engaging and effective learning environment."
-                            data-fr="Que vous soyez un éducateur expérimenté ou nouveau dans l'enseignement à l'école primaire, EduKit Pro vous fournit les ressources dont vous avez besoin pour créer un environnement d'apprentissage attrayant et efficace."
-                            data-ar="سواء كنت معلما ذا خبرة أو جديدا في تدريس المدارس الابتدائية، فإن EduKit Pro يوفر الموارد التي تحتاجها لإنشاء بيئة تعليمية جذابة وفعالة.">
-                            Whether you're an experienced educator or new to teaching primary school, EduKit Pro
-                            provides the resources you need to create an engaging and effective learning environment.
-                        </p>
+
+                        <p class="confirmation-wait" data-en="Please keep your phone accessible. Our team will contact you soon!" data-fr="Veuillez garder votre téléphone accessible. Notre équipe vous contactera bientôt!" data-ar="يرجى إبقاء هاتفك متاحًا. سيتصل بك فريقنا قريبًا!">Please keep your phone accessible. Our team will contact you soon!</p>
+
+                        <button class="new-order-btn" onclick="resetForm()" data-en="Place Another Order" data-fr="Passer une autre commande" data-ar="تقديم طلب آخر">Place Another Order</button>
                     </div>
-                </section>
-
-                <!-- Order Form Section -->
-                <section class="order-section">
-                    <div class="order-container">
-                        <h2 data-en="Order Your EduKit Pro Today" data-fr="Commandez votre EduKit Pro aujourd'hui"
-                            data-ar="اطلب EduKit Pro الخاص بك اليوم">Order Your EduKit Pro Today</h2>
-                        <p class="order-intro"
-                            data-en="Fill in the form below to place your order. Our team will contact you to complete the payment and arrange delivery."
-                            data-fr="Remplissez le formulaire ci-dessous pour passer votre commande. Notre équipe vous contactera pour finaliser le paiement et organiser la livraison."
-                            data-ar="املأ النموذج أدناه لتقديم طلبك. سيتصل بك فريقنا لإكمال الدفع وترتيب التسليم.">Fill
-                            in the form below to place your order. Our team will contact you to complete the payment and
-                            arrange delivery.</p>
-
-                        <div class="pricing-highlight-order">
-                            <span class="price-highlight" data-en="Limited Time Offer: Only 150 DH"
-                                data-fr="Offre à durée limitée : Seulement 150 DH"
-                                data-ar="عرض محدود الوقت: فقط 150 درهم فقط">Limited Time Offer: Only 150 DH</span>
-                        </div>
-
-                        <form id="orderForm" class="order-form" name="order-main" method="POST" data-netlify="true"
-                            netlify-honeypot="bot-field">
-                            <input type="hidden" name="form-name" value="order-main" />
-                            <p style="display:none"><label>Don't fill this out if you're human: <input
-                                        name="bot-field" /></label></p>
-                            <div class="form-group">
-                                <label for="fullName" data-en="Full Name *" data-fr="Nom complet *"
-                                    data-ar="الاسم الكامل *">Full Name *</label>
-                                <input type="text" id="fullName" name="fullName" required
-                                    placeholder="Enter your full name">
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="phone" data-en="Phone / WhatsApp Number *"
-                                        data-fr="Numéro de téléphone / WhatsApp *"
-                                        data-ar="رقم الهاتف / WhatsApp *">Phone / WhatsApp Number *</label>
-                                    <input type="tel" id="phone" name="phone" required
-                                        placeholder="e.g., +212 6XX XXX XXX">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" data-en="Email Address *" data-fr="Adresse e-mail *"
-                                        data-ar="عنوان البريد الإلكتروني *">Email Address *</label>
-                                    <input type="email" id="email" name="email" required
-                                        placeholder="your.email@example.com">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="location" data-en="City / Region (Morocco) *"
-                                        data-fr="Ville / Région (Maroc) *" data-ar="المدينة / المنطقة (المغرب) *">City /
-                                        Region (Morocco) *</label>
-                                    <input type="text" id="location" name="location" required
-                                        placeholder="e.g., Casablanca, Rabat, Fes">
-                                </div>
-                                <div class="form-group">
-                                    <label for="gradeLevel" data-en="Grade Level You Teach *"
-                                        data-fr="Niveau de classe que vous enseignez *"
-                                        data-ar="مستوى الفئة التي تقوم بتدريسها *">Grade Level You Teach *</label>
-                                    <select id="gradeLevel" name="gradeLevel" required>
-                                        <option value="">-- Select Grade Level --</option>
-                                        <option value="Grade 1">Grade 1</option>
-                                        <option value="Grade 2">Grade 2</option>
-                                        <option value="Grade 3">Grade 3</option>
-                                        <option value="Grade 4">Grade 4</option>
-                                        <option value="Grade 5">Grade 5</option>
-                                        <option value="Grade 6">Grade 6</option>
-                                        <option value="Multiple Grades">Multiple Grades</option>
-                                        <option value="Admin/Coordinator">Admin/Coordinator</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group checkbox-group">
-                                <input type="checkbox" id="terms" name="terms" required>
-                                <label for="terms" class="checkbox-label"
-                                    data-en="I agree to the terms and conditions and understand that the team will contact me via WhatsApp or email to complete the payment process."
-                                    data-fr="J'accepte les conditions générales et je comprends que l'équipe me contactera par WhatsApp ou par e-mail pour finaliser le paiement."
-                                    data-ar="أوافق على الشروط والأحكام وأفهم أن الفريق سيتصل بي عبر WhatsApp أو البريد الإلكتروني لإكمال عملية الدفع.">I
-                                    agree to the terms and conditions and understand that the team will contact me via
-                                    WhatsApp or email to complete the payment process.</label>
-                            </div>
-
-                            <button type="submit" class="submit-btn" data-en="Confirm Order"
-                                data-fr="Confirmer la commande" data-ar="تأكيد الطلب">Confirm Order</button>
-                        </form>
-
-                        <!-- Confirmation Message (Hidden by default) -->
-                        <div id="confirmationMessage" class="confirmation-message hidden">
-                            <div class="confirmation-content">
-                                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-                                <h3 data-en="Order Received Successfully!" data-fr="Commande reçue avec succès !"
-                                    data-ar="تم استلام الطلب بنجاح!">Order Received Successfully!</h3>
-                                <p data-en="Thank you for ordering EduKit Pro!"
-                                    data-fr="Merci d'avoir commandé EduKit Pro !" data-ar="شكرا لك على طلب EduKit Pro!">
-                                    Thank you for ordering EduKit Pro!</p>
-                                <p class="confirmation-details"
-                                    data-en="We have received your order and will contact you shortly via WhatsApp or email to:"
-                                    data-fr="Nous avons reçu votre commande et vous contacterons bientôt par WhatsApp ou par e-mail pour :"
-                                    data-ar="لقد استقبلنا طلبك وسنتصل بك قريبا عبر WhatsApp أو البريد الإلكتروني لـ :">
-                                    We have received your order and will contact you shortly via <strong>WhatsApp or
-                                        email</strong> to:</p>
-                                <ul class="confirmation-steps">
-                                    <li data-en="Confirm your order details" data-fr="Confirmer vos détails de commande"
-                                        data-ar="تأكيد تفاصيل طلبك">Confirm your order details</li>
-                                    <li data-en="Process your payment" data-fr="Traiter votre paiement"
-                                        data-ar="معالجة الدفع الخاص بك">Process your payment</li>
-                                    <li data-en="Arrange delivery of your materials"
-                                        data-fr="Organiser la livraison de vos matériaux" data-ar="ترتيب توصيل مواردك">
-                                        Arrange delivery of your materials</li>
-                                </ul>
-                                <p class="confirmation-wait"
-                                    data-en="Please keep your phone and email accessible. We typically respond within 24-48 hours."
-                                    data-fr="Veuillez garder votre téléphone et votre e-mail accessibles. Nous répondons généralement dans les 24 à 48 heures."
-                                    data-ar="يرجى إبقاء هاتفك وبريدك الإلكتروني في متناول اليد. عادة ما نرد في غضون 24-48 ساعة.">
-                                    Please keep your phone and email accessible. We typically respond within
-                                    <strong>24-48 hours</strong>.
-                                </p>
-                                <button type="button" class="new-order-btn" onclick="resetForm()"
-                                    data-en="Place Another Order" data-fr="Passer une autre commande"
-                                    data-ar="تقديم طلب آخر">Place Another Order</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-    </main>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p data-en="© 2025 EduKit Pro. All rights reserved. | Designed for Moroccan Primary School Educators"
-                data-fr="© 2025 EduKit Pro. Tous droits réservés. | Conçu pour les enseignants des écoles primaires marocaines"
-                data-ar="© 2025 EduKit Pro. جميع الحقوق محفوظة. | مصمم لمعلمي المدارس الابتدائية المغربية">© 2025 EduKit
-                Pro. All rights reserved. | Designed for Moroccan Primary School Educators</p>
-            <p data-en="Contact: support@edukitpro.com | Available for Moroccan Teachers Nationwide"
-                data-fr="Contact : support@edukitpro.com | Disponible pour les enseignants marocains à travers le pays"
-                data-ar="تواصل: support@edukitpro.com | متاح لمعلمي المدارس المغربية في جميع أنحاء البلاد">Contact:
-                support@edukitpro.com | Available for Moroccan Teachers Nationwide</p>
+            <div class="footer-content">
+                <div class="footer-logo">EduKit Pro</div>
+                <p data-en="Empowering Moroccan teachers, one classroom at a time." data-fr="Autonomiser les enseignants marocains, une classe à la fois." data-ar="تمكين المعلمين المغاربة، صف واحد في كل مرة.">Empowering Moroccan teachers, one classroom at a time.</p>
+                <p>&copy; 2024 EduKit Pro. <span data-en="All rights reserved." data-fr="Tous droits réservés." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+                <p data-en="Contact: support@edukitpro.ma | Phone: +212 5XX-XXXXXX" data-fr="Contact: support@edukitpro.ma | Téléphone: +212 5XX-XXXXXX" data-ar="اتصل بنا: support@edukitpro.ma | الهاتف: +212 5XX-XXXXXX">Contact: support@edukitpro.ma | Phone: +212 5XX-XXXXXX</p>
+            </div>
         </div>
     </footer>
 
     <script>
         // ============================================
-// Language Management
-// ============================================
-
-let currentLanguage = 'en';
-
-function initLanguageSwitcher() {
-    const langButtons = document.querySelectorAll('.lang-btn');
-    langButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            const lang = this.getAttribute('data-lang');
-            setLanguage(lang);
-        });
-    });
-}
-
-function setLanguage(lang) {
-    currentLanguage = lang;
-
-    // Update active button
-    const langButtons = document.querySelectorAll('.lang-btn');
-    langButtons.forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-
-    // Update all translatable elements
-    updatePageContent(lang);
-
-    // Update text direction for Arabic
-    if (lang === 'ar') {
-        document.documentElement.lang = 'ar';
-        document.documentElement.dir = 'rtl';
-        document.body.dir = 'rtl';
-    } else {
-        document.documentElement.lang = lang;
-        document.documentElement.dir = 'ltr';
-        document.body.dir = 'ltr';
-    }
-
-    // Save preference
-    localStorage.setItem('preferredLanguage', lang);
-}
-
-function updatePageContent(lang) {
-    const elements = document.querySelectorAll('[data-en]');
-    elements.forEach(element => {
-        const content = element.getAttribute(`data-${lang}`);
-        if (content) {
-            // Check if this is an input placeholder
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = content;
-            } else if (element.tagName === 'SELECT' && element.querySelector('option')) {
-                // For select, update the first option if needed
-                const firstOption = element.querySelector('option:first-child');
-                if (firstOption) {
-                    firstOption.textContent = content;
-                }
-            } else {
-                element.textContent = content;
-            }
-        }
-    });
-
-    // Translate option labels
-    const selectOptions = {
-        'Grade 1': { fr: 'Classe 1', ar: 'الصف الأول' },
-        'Grade 2': { fr: 'Classe 2', ar: 'الصف الثاني' },
-        'Grade 3': { fr: 'Classe 3', ar: 'الصف الثالث' },
-        'Grade 4': { fr: 'Classe 4', ar: 'الصف الرابع' },
-        'Grade 5': { fr: 'Classe 5', ar: 'الصف الخامس' },
-        'Grade 6': { fr: 'Classe 6', ar: 'الصف السادس' },
-        'Multiple Grades': { fr: 'Plusieurs classes', ar: 'فئات متعددة' },
-        'Admin/Coordinator': { fr: 'Admin/Coordinateur', ar: 'الإدارة / المنسق' }
-    };
-
-    const gradeLevelSelect = document.getElementById('gradeLevel');
-    if (gradeLevelSelect) {
-        const options = gradeLevelSelect.querySelectorAll('option');
-        options.forEach(option => {
-            const englishText = option.textContent.trim();
-            if (selectOptions[englishText] && selectOptions[englishText][lang]) {
-                option.textContent = selectOptions[englishText][lang];
-            } else if (englishText === '-- Select Grade Level --') {
-                if (lang === 'fr') {
-                    option.textContent = '-- Sélectionnez le niveau de classe --';
-                } else if (lang === 'ar') {
-                    option.textContent = '-- اختر مستوى الفئة --';
-                }
-            }
-        });
-    }
-
-    // Update input placeholders if they exist
-    const placeholders = {
-        fullName: { en: 'Enter your full name', fr: 'Entrez votre nom complet', ar: 'أدخل اسمك الكامل' },
-        phone: { en: 'e.g., +212 6XX XXX XXX', fr: 'ex. +212 6XX XXX XXX', ar: 'مثال: +212 6XX XXX XXX' },
-        email: { en: 'your.email@example.com', fr: 'votre.email@example.com', ar: 'your.email@example.com' },
-        location: { en: 'e.g., Casablanca, Rabat, Fes', fr: 'ex. Casablanca, Rabat, Fès', ar: 'مثال: الدار البيضاء، الرباط، فاس' }
-    };
-
-    Object.keys(placeholders).forEach(id => {
-        const element = document.getElementById(id);
-        if (element && placeholders[id][lang]) {
-            element.placeholder = placeholders[id][lang];
-        }
-    });
-}
-
-// Load saved language preference on page load
-function loadLanguagePreference() {
-    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-    setLanguage(savedLang);
-}
-
-// ============================================
-// Form Handling and Submission
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Load saved language preference
-    loadLanguagePreference();
-
-    // Initialize language switcher
-    initLanguageSwitcher();
-
-    const orderForm = document.getElementById('orderForm');
-    const confirmationMessage = document.getElementById('confirmationMessage');
-
-    // Form submission handler
-    orderForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = {
-            fullName: document.getElementById('fullName').value.trim(),
-            phone: document.getElementById('phone').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            location: document.getElementById('location').value.trim(),
-            gradeLevel: document.getElementById('gradeLevel').value,
-            timestamp: new Date().toLocaleString()
+        // LANGUAGE SWITCHER
+        // ============================================
+        const translations = {
+            en: 'en',
+            fr: 'fr',
+            ar: 'ar'
         };
 
-        // Validate form data
-        if (!validateForm(formData)) {
-            return;
-        }
+        let currentLang = 'en';
 
+        function switchLanguage(lang) {
+            currentLang = lang;
 
-        // Netlify Submission
-        const payload = new FormData(orderForm);
-
-        fetch('/', {
-            method: 'POST',
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(payload).toString()
-        })
-            .then(() => {
-                // Store data locally (optional backup)
-                storeOrderData(formData);
-
-                // Show confirmation message
-                showConfirmation();
-            })
-            .catch((error) => {
-                console.error('Submission error:', error);
-                alert('There was an error submitting your order. Please try again.');
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
             });
-    });
 
-    // Form validation
-    function validateForm(data) {
-        // Check if name contains only letters and spaces
-        if (!/^[a-zA-Z\s]+$/.test(data.fullName)) {
-            alert('Please enter a valid name (letters and spaces only)');
-            return false;
+            // Update all translatable elements
+            document.querySelectorAll('[data-en]').forEach(element => {
+                const key = `data-${lang}`;
+                if (element.hasAttribute(key)) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'OPTION') {
+                        element.placeholder = element.getAttribute(key);
+                    } else {
+                        element.textContent = element.getAttribute(key);
+                    }
+                }
+            });
+
+            // Update RTL for Arabic
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.setAttribute('dir', 'ltr');
+            }
         }
 
-        // Check if phone is valid
-        if (!/^[\d\s+\-()]+$/.test(data.phone) || data.phone.length < 7) {
-            alert('Please enter a valid phone number');
-            return false;
+        // Add event listeners to language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // ============================================
+        // SCROLL REVEAL ANIMATIONS
+        // ============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ============================================
+        // HEADER SCROLL EFFECT
+        // ============================================
+        const header = document.getElementById('header');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        const orderForm = document.getElementById('orderForm');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(orderForm);
+            const data = Object.fromEntries(formData);
+
+            // Here you would normally send the data to your server
+            console.log('Order submitted:', data);
+
+            // Show confirmation message
+            orderForm.style.display = 'none';
+            confirmationMessage.classList.remove('hidden');
+
+            // Scroll to confirmation
+            confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        function resetForm() {
+            orderForm.reset();
+            orderForm.style.display = 'block';
+            confirmationMessage.classList.add('hidden');
+            orderForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // Check if email is valid
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-            alert('Please enter a valid email address');
-            return false;
-        }
+        // ============================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-        // Check if location is not empty
-        if (data.location.length === 0) {
-            alert('Please enter your city/country');
-            return false;
-        }
+        // ============================================
+        // FORM VALIDATION ENHANCEMENT
+        // ============================================
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            // Allow only numbers and common phone formatting characters
+            this.value = this.value.replace(/[^0-9+\-() ]/g, '');
+        });
 
-        // Check if grade level is selected
-        if (data.gradeLevel === '') {
-            alert('Please select a grade level');
-            return false;
-        }
-
-        return true;
-    }
-
-    // Store order data
-    function storeOrderData(data) {
-        // Save to localStorage for demonstration
-        let orders = JSON.parse(localStorage.getItem('eduKitOrders')) || [];
-        orders.push(data);
-        localStorage.setItem('eduKitOrders', JSON.stringify(orders));
-
-        // In a real application, you would send this data to a server
-        // Example:
-        // fetch('/api/orders', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        // .then(response => response.json())
-        // .then(data => console.log('Order saved:', data))
-        // .catch(error => console.error('Error:', error));
-    }
-
-    // Show confirmation message
-    function showConfirmation() {
-        // Hide the form
-        orderForm.style.display = 'none';
-
-        // Show confirmation message
-        confirmationMessage.classList.remove('hidden');
-
-        // Scroll to confirmation message
-        confirmationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-});
-
-// Reset form and show form again
-function resetForm() {
-    const orderForm = document.getElementById('orderForm');
-    const confirmationMessage = document.getElementById('confirmationMessage');
-
-    // Clear form fields
-    orderForm.reset();
-
-    // Show form
-    orderForm.style.display = 'block';
-
-    // Hide confirmation message
-    confirmationMessage.classList.add('hidden');
-
-    // Scroll to form
-    orderForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// ============================================
-// Additional Features
-// ============================================
-
-// Auto-format phone number as user types
-document.getElementById('phone')?.addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, '');
-
-    // Format as: +1 (555) 123-4567
-    if (value.length > 0) {
-        if (value.length <= 3) {
-            e.target.value = '+' + value;
-        } else if (value.length <= 6) {
-            e.target.value = '+' + value.slice(0, 1) + ' (' + value.slice(1, 4) + ') ' + value.slice(4);
-        } else {
-            e.target.value = '+' + value.slice(0, 1) + ' (' + value.slice(1, 4) + ') ' + value.slice(4, 7) + '-' + value.slice(7, 11);
-        }
-    }
-});
-
-// Capitalize first letter of name as user types
-document.getElementById('fullName')?.addEventListener('blur', function (e) {
-    const words = e.target.value.trim().split(/\s+/);
-    const capitalizedName = words
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-        .join(' ');
-    e.target.value = capitalizedName;
-});
-
-// Capitalize first letter of location
-document.getElementById('location')?.addEventListener('blur', function (e) {
-    const value = e.target.value.trim();
-    const parts = value.split(',').map(part => {
-        return part.trim()
-            .split(/\s+/)
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    });
-    e.target.value = parts.join(', ');
-});
-
-// ============================================
-// Console Message
-// ============================================
-
-console.log('%cEduKit Pro - Order Form', 'color: #2563eb; font-size: 16px; font-weight: bold;');
-console.log('%cOrders are stored in browser localStorage for demonstration.', 'color: #6b7280;');
-console.log('%cIn production, connect this form to your backend server.', 'color: #6b7280;');
-
+        // ============================================
+        // INITIALIZE
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trigger scroll reveal for elements already in view
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.classList.add('revealed');
+                }
+            });
+        });
     </script>
 </body>
 
