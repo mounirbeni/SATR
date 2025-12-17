@@ -1564,6 +1564,35 @@ input[type="checkbox"] {
         transform: translateY(-2px);
     }
 }
+/* ==========================
+   Laptop (992px - 1400px) tweaks
+   ========================== */
+@media (min-width: 992px) and (max-width: 1400px) {
+    .container { max-width: 1100px; padding: 0 28px; }
+    .header { padding: 20px 0; }
+    .header-top { align-items: center; }
+    .logo { min-width: 220px; }
+    .logo h1 { font-size: 2rem; }
+    .tagline { font-size: 0.95em; }
+
+    .pricing-display { gap: 28px; margin: 60px 0; align-items: stretch; }
+    .price-item { min-width: 240px; padding: 32px; border-radius: calc(var(--base-radius) + 4px); }
+
+    .features-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .intro-card { padding: 60px; border-radius: 20px; }
+    .intro-description { font-size: 1.05rem; max-width: 900px; }
+
+    .order-form { max-width: 720px; margin: 0 auto; }
+    .form-row { gap: 22px; }
+
+    .feature-card { padding: 26px; }
+    .feature-icon { font-size: 2.1em; }
+
+    .footer { padding: 40px 0; }
+}
+
     </style>
 </head>
 
