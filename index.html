@@ -986,10 +986,77 @@
                 display: block;
             }
 
+            /* On mobile, move the language globe to the header/menu spot
+               and make it smaller so it doesn't take much space. */
             .language-switcher {
                 order: 3;
-                width: 100%;
+                width: auto;
+                justify-content: flex-end;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                z-index: 20;
+            }
+
+            /* Smaller globe/button for mobile */
+            .lang-toggle {
+                padding: 0.35rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                display: inline-flex;
+                align-items: center;
                 justify-content: center;
+                border-radius: 999px;
+            }
+
+            /* Place the dropdown under the small globe on mobile */
+            .lang-menu {
+                right: 0;
+                top: calc(100% + 8px);
+                min-width: 140px;
+            }
+
+            /* Prevent overlap: ensure header & body reserve space for the small globe/menu */
+            header.header {
+                position: relative;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                min-height: 56px;
+                z-index: 30;
+            }
+
+            /* Add a small top padding to the body so the absolute language switcher doesn't overlap content */
+            body {
+                padding-top: 64px;
+            }
+
+            /* Give cards and sections extra breathing room on mobile */
+            .pricing-wrapper,
+            .features-grid,
+            .reviews-grid {
+                gap: var(--space-6);
+            }
+
+            .price-card,
+            .feature-card,
+            .review-card {
+                margin-bottom: var(--space-6);
+            }
+
+            .order-form-container {
+                margin-top: var(--space-4);
+                margin-bottom: var(--space-6);
+            }
+
+            .confirmation-message {
+                margin-top: var(--space-6);
+            }
+
+            /* Make sure the language dropdown doesn't cover page content when opened */
+            .lang-menu.open {
+                box-shadow: 0 10px 30px rgba(2,6,23,0.2);
+                background: white;
             }
 
             .hero-section {
